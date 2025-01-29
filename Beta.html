@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>More Text Example</title>
+    <style>
+        #moreText {
+            display: none;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        #moreButton {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #moreButton:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <p>The trigonometric function that is equal to the ratio of the side opposite a given angle to the hypotenuse.</p>
+
+    <!-- Button to show more text -->
+    <button id="moreButton" onclick="toggleText()">More</button>
+
+    <!-- Hidden text -->
+    <p id="moreText">This is the full description of the sine function in trigonometry.</p>
+
+    <script>
+        function toggleText() {
+            var moreText = document.getElementById("moreText");
+            var moreButton = document.getElementById("moreButton");
+
+            if (moreText.style.display === "none") {
+                moreText.style.display = "block";
+                moreButton.innerHTML = "Less";  // Change button text to "Less"
+            } else {
+                moreText.style.display = "none";
+                moreButton.innerHTML = "More";  // Change button text back to "More"
+            }
+        }
+    </script>
+
+</body>
+</html>

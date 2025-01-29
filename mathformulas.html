@@ -1,0 +1,630 @@
+
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+  <head><script src="https://getbootstrap.com/docs/5.3/assets/js/color-modes.js"></script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Shaurya, Bootstrap">
+    <meta name="generator" content="Hugo 0.122.0">
+    <title>Math</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/jumbotron/">
+
+    
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+
+<link href="https://getbootstrap.com/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- Favicons -->
+<link rel="apple-touch-icon" href="/docs/5.3/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/docs/5.3/assets/img/favicons/manifest.json">
+<link rel="mask-icon" href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
+<link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico">
+<meta name="theme-color" content="#712cf9">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+
+      .btn:hover {
+        transform: scale(1.1); /* Makes the element 10% larger when hovered */
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        width: 100%;
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .btn-bd-primary {
+        --bd-violet-bg: #712cf9;
+        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+        --bs-btn-font-weight: 600;
+        --bs-btn-color: var(--bs-white);
+        --bs-btn-bg: var(--bd-violet-bg);
+        --bs-btn-border-color: var(--bd-violet-bg);
+        --bs-btn-hover-color: var(--bs-white);
+        --bs-btn-hover-bg: #6528e0;
+        --bs-btn-hover-border-color: #6528e0;
+        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+        --bs-btn-active-color: var(--bs-btn-hover-color);
+        --bs-btn-active-bg: #5a23c8;
+        --bs-btn-active-border-color: #5a23c8;
+      }
+
+      .bd-mode-toggle {
+        z-index: 1500;
+      }
+
+      .bd-mode-toggle .dropdown-menu .active .bi {
+        display: block !important;
+      }
+
+
+      #moreText {
+            display: none;
+            font-size: 16px;
+            margin-top: 10px;
+
+        }
+        #moreButton {
+            background-color: #007BFF;
+            color: White;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            \
+        }
+        #moreButton:hover {
+            background-color: blue;
+            color: white;
+            transform: scale(1.1); /* Makes the element 10% larger when hovered */
+        }
+
+      #moreText2 {
+            display: none;
+            font-size: 16px;
+            margin-top: 10px;
+
+        }
+        #moreButton2 {
+            background-color: #007BFF;
+            color: White;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            \
+        }
+        #moreButton2:hover {
+            background-color: blue;
+            color: white;
+            transform: scale(1.1); /* Makes the element 10% larger when hovered */
+        }
+
+
+    </style>
+
+    
+  </head>
+  <body>
+    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+      <symbol id="check2" viewBox="0 0 16 16">
+        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+      </symbol>
+      <symbol id="circle-half" viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+      </symbol>
+      <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+        <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+        <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+      </symbol>
+      <symbol id="sun-fill" viewBox="0 0 16 16">
+        <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+      </symbol>
+    </svg>
+
+    <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
+      <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
+              id="bd-theme"
+              type="button"
+              aria-expanded="false"
+              data-bs-toggle="dropdown"
+              aria-label="Toggle theme (auto)">
+        <svg class="bi my-1 theme-icon-active" width="1em" height="1em"><use href="#circle-half"></use></svg>
+        <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
+        <li>
+          <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+            <svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#sun-fill"></use></svg>
+            Light
+            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+            <svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#moon-stars-fill"></use></svg>
+            Dark
+            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
+            <svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#circle-half"></use></svg>
+            Auto
+            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    
+<main>
+  <div class="container py-4">
+    <header class="pb-3 mb-4 border-bottom">
+      <a href="home.html" class="d-flex align-items-center text-body-emphasis text-decoration-none">
+        <img src="https://github.com/shaurio/webbfx/blob/master/img/Background/home-svgrepo-com.svg?raw=true" class="card-img-top" alt="Quick Math Solver">
+        <span class="fs-4">Home</span>
+      </a>
+    </header>
+
+    <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+      <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Quick Math Solver</h1>
+        <p class="col-md-8 fs-4">Welcome! You input values in a formula, then press solve, and it calculates for you. Ranges from simple addition, to quadratic factoring, and more.</p>
+        <button class="btn btn-primary btn-lg" type="button" onclick="document.getElementById('showcase').scrollIntoView({ behavior: 'smooth' });">View!</button>
+      </div>
+    </div>
+
+    <div id="showcase" class="row align-items-md-stretch">
+      <div class="col-md-6">
+        <div class="h-100 p-5 text-bg-dark rounded-3">
+          <h2>a + b</h2>
+          <p></p>
+
+          <h1 style="text-align: center;">Simple Addition</h1>
+          <form id="additionForm" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <label for="number1" style="font-size: 20px;">Input "a":</label>
+            <input type="number" id="number1" name="number1" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="number2" style="font-size: 20px;">Input "b":</label>
+            <input type="number" id="number2" name="number2" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <button type="button" onclick="addNumbers()"
+                    style="padding: 10px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Add
+            </button>
+          </form>
+          <h2 id="result" style="text-align: center; margin-top: 20px; font-size: 20px; color: white;"></h2>
+
+          <script>
+            function addNumbers() {
+              var num1 = parseFloat(document.getElementById('number1').value);
+              var num2 = parseFloat(document.getElementById('number2').value);
+              var sum = num1 + num2;
+              document.getElementById('result').innerText = "Result: " + sum;
+            }
+          </script>
+
+<!--
+          <button class="btn btn-outline-light" type="button">Upvote</button>
+        -->
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+          <h2>a - b</h2>
+
+          <h1 style="text-align: center;">Simple Subtraction</h1>
+          <form id="subtractionForm" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <label for="subtractionNumber1" style="font-size: 20px;">Input "a":</label>
+            <input type="number" id="subtractionNumber1" name="subtractionNumber1" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="subtractionNumber2" style="font-size: 20px;">Input "b":</label>
+            <input type="number" id="subtractionNumber2" name="subtractionNumber2" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <button type="button" onclick="subtractNumbers()"
+                    style="padding: 10px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Subtract
+            </button>
+          </form>
+          <h2 id="subtractionResult" style="text-align: center; margin-top: 20px; font-size: 20px; color: black;"></h2>
+          <script>
+            function subtractNumbers() {
+              var num1 = parseFloat(document.getElementById('subtractionNumber1').value);
+              var num2 = parseFloat(document.getElementById('subtractionNumber2').value);
+              var difference = num1 - num2;
+              document.getElementById('subtractionResult').innerText = "Result: " + difference;
+            }
+          </script>
+<!--
+          <button class="btn btn-outline-secondary" type="button">Upvote</button>
+        -->
+        </div>
+      </div>
+
+      <div class="col-md-6" style="padding-top: 25px;">
+        <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+          <h2>a * b</h2>
+
+          <h1 style="text-align: center;">Simple Multiplication</h1>
+          <form id="multiplicationForm" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <label for="multiplicationNumber1" style="font-size: 20px;">Input "a":</label>
+            <input type="number" id="multiplicationNumber1" name="multiplicationNumber1" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="multiplicationNumber2" style="font-size: 20px;">Input "b":</label>
+            <input type="number" id="multiplicationNumber2" name="multiplicationNumber2" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <button type="button" onclick="multiplyNumbers()"
+                    style="padding: 10px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Multiply
+            </button>
+          </form>
+          <h2 id="multiplicationResult"
+              style="text-align: center; margin-top: 20px; font-size: 20px; color: black;"></h2>
+
+          <script>
+            function multiplyNumbers() {
+              var num1 = parseFloat(document.getElementById('multiplicationNumber1').value);
+              var num2 = parseFloat(document.getElementById('multiplicationNumber2').value);
+              var product = num1 * num2;
+              document.getElementById('multiplicationResult').innerText = "Result: " + product;
+            }
+          </script>
+
+          <!--
+          <button class="btn btn-outline-secondary" type="button">Upvote</button>
+          -->
+        </div>
+
+      </div>
+      <div class="col-md-6" style="padding-top: 25px;">
+        <div class="h-100 p-5 text-bg-dark rounded-3">
+          <h2>a / b</h2>
+
+          <h1 style="text-align: center;">Simple Division</h1>
+          <form id="divisionForm" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <label for="divisionNumber1" style="font-size: 20px;">Input "a":</label>
+            <input type="number" id="divisionNumber1" name="divisionNumber1" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="divisionNumber2" style="font-size: 20px;">Input "b":</label>
+            <input type="number" id="divisionNumber2" name="divisionNumber2" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <button type="button" onclick="divideNumbers()"
+                    style="padding: 10px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Divide
+            </button>
+          </form>
+          <h2 id="divisionResult" style="text-align: center; margin-top: 20px; font-size: 20px; color: white;"></h2>
+
+          <script>
+            function divideNumbers() {
+              var num1 = parseFloat(document.getElementById('divisionNumber1').value);
+              var num2 = parseFloat(document.getElementById('divisionNumber2').value);
+              if (num2 === 0) {
+                document.getElementById('divisionResult').innerText = "Cannot divide by zero";
+              } else {
+                var quotient = num1 / num2;
+                document.getElementById('divisionResult').innerText = "Result: " + quotient;
+              }
+            }
+          </script>
+
+        </div>
+
+      </div>
+      <div class="col-md-6" style="padding-top: 25px;">
+        <div class="h-100 p-5 text-bg-dark rounded-3">
+          <h2>√a</h2>
+
+          <h1 style="text-align: center;">Square Root</h1>
+          <form id="squareRootForm" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <label for="squareRootNumber" style="font-size: 20px;">Input "a":</label>
+            <input type="number" id="squareRootNumber" name="squareRootNumber" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <button type="button" onclick="calculateSquareRoot()"
+                    style="padding: 10px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Calculate
+            </button>
+          </form>
+          <h2 id="squareRootResult" style="text-align: center; margin-top: 20px; font-size: 20px; color: white;"></h2>
+
+          <script>
+            function calculateSquareRoot() {
+              var num = parseFloat(document.getElementById('squareRootNumber').value);
+              if (num < 0) {
+                document.getElementById('squareRootResult').innerText = "Cannot find square root of a negative number";
+              } else {
+                var sqrt = Math.sqrt(num);
+                document.getElementById('squareRootResult').innerText = "Result: " + sqrt;
+              }
+            }
+          </script>
+
+          <!--
+                    <button class="btn btn-outline-secondary" type="button">Upvote</button>
+                  -->
+        </div>
+      </div>
+      <div class="col-md-6" style="padding-top: 25px;">
+        <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+          <h2>a-th root of b</h2>
+
+          <h1 style="text-align: center;">Root Calculation</h1>
+          <form id="rootForm" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <label for="rootNumber" style="font-size: 20px;">Input "a" (root):</label>
+            <input type="number" id="rootNumber" name="rootNumber" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="numberToRoot" style="font-size: 20px;">Input "b" (number):</label>
+            <input type="number" id="numberToRoot" name="numberToRoot" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <button type="button" onclick="calculateRoot()"
+                    style="padding: 10px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Calculate
+            </button>
+          </form>
+          <h2 id="rootResult" style="text-align: center; margin-top: 20px; font-size: 20px; color: black;"></h2>
+
+          <script>
+            function calculateRoot() {
+              var root = parseFloat(document.getElementById('rootNumber').value);
+              var num = parseFloat(document.getElementById('numberToRoot').value);
+              if (root === 0) {
+                document.getElementById('rootResult').innerText = "Root must be greater than zero";
+              } else {
+                var result = Math.pow(num, 1 / root);
+                document.getElementById('rootResult').innerText = "Result: " + result;
+              }
+            }
+          </script>
+
+
+          <!--
+          <button class="btn btn-outline-secondary" type="button">Upvote</button>
+          -->
+        </div>
+
+      </div>
+      <div class="col-md-6" style="padding-top: 25px;">
+        <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+          <h2>a²</h2>
+
+          <h1 style="text-align: center;">Square Calculation</h1>
+          <form id="squareForm" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <label for="squareNumber" style="font-size: 20px;">Input "a":</label>
+            <input type="number" id="squareNumber" name="squareNumber" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <button type="button" onclick="calculateSquare()"
+                    style="padding: 10px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Calculate
+            </button>
+          </form>
+          <h2 id="squareResult" style="text-align: center; margin-top: 20px; font-size: 20px; color: black;"></h2>
+
+          <script>
+            function calculateSquare() {
+              var num = parseFloat(document.getElementById('squareNumber').value);
+              var square = num * num;
+              document.getElementById('squareResult').innerText = "Result: " + square;
+            }
+          </script>
+
+
+          <!--
+          <button class="btn btn-outline-secondary" type="button">Upvote</button>
+          -->
+        </div>
+
+      </div>
+      <div class="col-md-6" style="padding-top: 25px;">
+        <div class="h-100 p-5 text-bg-dark rounded-3">
+          <h2>a^b</h2>
+
+          <h1 style="text-align: center;">Exponentiation Calculation</h1>
+          <form id="exponentiationForm" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <label for="baseNumber" style="font-size: 20px;">Input "a" (base):</label>
+            <input type="number" id="baseNumber" name="baseNumber" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="exponentNumber" style="font-size: 20px;">Input "b" (exponent):</label>
+            <input type="number" id="exponentNumber" name="exponentNumber" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <button type="button" onclick="calculateExponentiation()"
+                    style="padding: 10px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Calculate
+            </button>
+          </form>
+          <h2 id="exponentiationResult"
+              style="text-align: center; margin-top: 20px; font-size: 20px; color: white;"></h2>
+
+          <script>
+            function calculateExponentiation() {
+              var exponent = parseFloat(document.getElementById('exponentNumber').value);
+              var base = parseFloat(document.getElementById('baseNumber').value);
+              var result = Math.pow(base, exponent);
+              document.getElementById('exponentiationResult').innerText = "Result: " + result;
+            }
+          </script>
+
+
+          <!--
+                    <button class="btn btn-outline-secondary" type="button">Upvote</button>
+                  -->
+        </div>
+      </div>
+      <div class="col-md-6" style="padding-top: 25px;">
+        <div class="h-100 p-5 text-bg-dark rounded-3">
+          <h2>sin(θ)</h2>
+
+          <h1 style="text-align: center;">Sine Calculation</h1>
+          <p style="text-align: center;">Input the lengths of the "opposite" side and the "hypotenuse" to find the sine
+            of the angle.</p>
+          <button id="moreButton" onclick="toggleText()" >More</button>
+          <p id="moreText"> The trigonometric function that is equal to the ratio of the side opposite a given angle (in a right triangle) to the hypotenuse.</p>
+          <script>
+            function toggleText() {
+                var moreText = document.getElementById("moreText");
+                var moreButton = document.getElementById("moreButton");
+
+                if (moreText.style.display === "none") {
+                    moreText.style.display = "block";
+                    moreButton.innerHTML = "Less";  // Change button text to "Less"
+                } else {
+                    moreText.style.display = "none";
+                    moreButton.innerHTML = "More";  // Change button text back to "More"
+                }
+            }
+          </script>
+          <form id="sineForm" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <label for="oppositeLength" style="font-size: 20px;">Opposite length:</label>
+            <input type="number" id="oppositeLength" name="oppositeLength" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="hypotenuseLength" style="font-size: 20px;">Hypotenuse length:</label>
+            <input type="number" id="hypotenuseLength" name="hypotenuseLength" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <button type="button" onclick="calculateSine()"
+                    style="padding: 10px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Calculate
+            </button>
+          </form>
+          <h2 id="sineResult" style="text-align: center; margin-top: 20px; font-size: 20px; color: white;"></h2>
+
+          <script>
+            function calculateSine() {
+              var opposite = parseFloat(document.getElementById('oppositeLength').value);
+              var hypotenuse = parseFloat(document.getElementById('hypotenuseLength').value);
+              if (hypotenuse === 0) {
+                document.getElementById('sineResult').innerText = "Hypotenuse length must be greater than zero";
+              } else {
+                var sine = opposite / hypotenuse;
+                document.getElementById('sineResult').innerText = "Result: " + sine;
+              }
+            }
+          </script>
+
+
+          <!--
+                    <button class="btn btn-outline-secondary" type="button">Upvote</button>
+                  -->
+        </div>
+      </div>
+      <div class="col-md-6" style="padding-top: 25px;">
+        <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+          <h2>cos(θ)</h2>
+
+          <h1 style="text-align: center;">Cosine Calculation</h1>
+          <p style="text-align: center;">Input the lengths of the "adjacent" side and the "hypotenuse" to find the
+            cosine of the angle.</p>
+          <button id="moreButton2" onclick="toggleText2()" >More</button>
+          <p id="moreText2"> The trigonometric function that is equal to the ratio of the side adjacent to an acute angle (in a right-angled triangle) to the hypotenuse.</p>
+          <script>
+            function toggleText2() {
+                var moreText2 = document.getElementById("moreText2");
+                var moreButton2 = document.getElementById("moreButton2");
+
+                if (moreText2.style.display === "none") {
+                    moreText2.style.display = "block";
+                    moreButton2.innerHTML = "Less";  // Change button text to "Less"
+                } else {
+                    moreText2.style.display = "none";
+                    moreButton2.innerHTML = "More";  // Change button text back to "More"
+                }
+            }
+          </script>
+          <form id="cosineForm" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <label for="adjacentLength" style="font-size: 20px;">Adjacent length:</label>
+            <input type="number" id="adjacentLength" name="adjacentLength" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="cosineHypotenuseLength" style="font-size: 20px;">Hypotenuse length:</label>
+            <input type="number" id="cosineHypotenuseLength" name="cosineHypotenuseLength" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <button type="button" onclick="calculateCosine()"
+                    style="padding: 10px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Calculate
+            </button>
+          </form>
+          <h2 id="cosineResult" style="text-align: center; margin-top: 20px; font-size: 20px; color: black;"></h2>
+
+          <script>
+            function calculateCosine() {
+              var adjacent = parseFloat(document.getElementById('adjacentLength').value);
+              var hypotenuse = parseFloat(document.getElementById('cosineHypotenuseLength').value);
+              if (hypotenuse === 0) {
+                document.getElementById('cosineResult').innerText = "Hypotenuse length must be greater than zero";
+              } else {
+                var cosine = adjacent / hypotenuse;
+                document.getElementById('cosineResult').innerText = "Result: " + cosine;
+              }
+            }
+          </script>
+
+          <!--
+                    <button class="btn btn-outline-secondary" type="button">Upvote</button>
+                  -->
+        </div>
+      </div>
+
+
+    </div>
+
+    <footer class="pt-3 mt-4 text-body-secondary border-top">
+      &copy; 2024
+    </footer>
+  </div>
+</main>
+<script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    </body>
+</html>
