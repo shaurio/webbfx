@@ -47,6 +47,26 @@
             }
         }
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() { // On document load
+            var words = [ 'festive', 'joyful', 'merry', 'jolly', 'bright', 'sparkling', 'wonderful', 'warm', 'cheerful', 'magical' ];
+            var currentIndex = 0;
+            var delay = 4200; // Delay in milliseconds
+
+            function updateText() {
+                var letsMakeItText = document.getElementById('letsmakeittext');
+                letsMakeItText.textContent = words[currentIndex];
+                currentIndex = (currentIndex + 1) % words.length; // Loop back to the start if we've reached the end
+            }
+
+            updateText(); // Update immediately on page load
+
+            // Set an interval to update the text every few seconds
+            setInterval(updateText, delay);
+        });
+    </script>
+
+    <span id="letsmakeittext"></span>
 
 </body>
 </html>

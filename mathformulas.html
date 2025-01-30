@@ -68,6 +68,27 @@
         fill: currentColor;
       }
 
+      /* Make sure the header is on the left side */
+header {
+    position: absolute;  /* Allows absolute positioning relative to the document */
+    left: 0;  /* Aligns the header to the left edge of the screen */
+    top: 0;   /* Optionally, you can define how far from the top you want it */
+    padding: 10px; /* Optional: adds some padding around the header */
+}
+
+/* Ensure the anchor and contents inside are aligned properly */
+header a {
+    display: flex;
+    align-items: center;  /* Vertically center the icon and text */
+}
+
+header img {
+    margin-right: 10px;  /* Optional: space between the icon and the text */
+}
+
+
+
+
       .nav-scroller {
         position: relative;
         z-index: 2;
@@ -214,16 +235,55 @@
     
 <main>
   <div class="container py-4">
-    <header class="pb-3 mb-4 border-bottom">
-      <a href="home.html" class="d-flex align-items-center text-body-emphasis text-decoration-none">
-        <img src="https://github.com/shaurio/webbfx/blob/master/img/Background/home-svgrepo-com.svg?raw=true" class="card-img-top" alt="Quick Math Solver">
-        <span class="fs-4">Home</span>
-      </a>
-    </header>
+    <div style="padding-bottom: 55px;">
+      <header class="pb-3 mb-4 border-bottom">
+        <a href="home.html" class="d-flex align-items-center text-body-emphasis text-decoration-none">
+          <img src="https://github.com/shaurio/webbfx/blob/master/img/icons/home-svgrepo-com.svg?raw=true"
+               class="card-img-top" alt="Quick Math Solver" width="30px" height="30px">
+          <span class="fs-4">Home</span>
+        </a>
+      </header>
+    </div>
 
     <div class="p-5 mb-4 bg-body-tertiary rounded-3">
       <div class="container-fluid py-5">
-        <h1 class="display-5 fw-bold">Quick Math Solver</h1>
+
+        <script>
+          function toggleText() {
+              var moreText = document.getElementById("moreText");
+              var moreButton = document.getElementById("moreButton");
+
+              if (moreText.style.display === "none") {
+                  moreText.style.display = "block";
+                  moreButton.innerHTML = "Less";  // Change button text to "Less"
+              } else {
+                  moreText.style.display = "none";
+                  moreButton.innerHTML = "More";  // Change button text back to "More"
+              }
+          }
+        </script>
+        <script>
+          document.addEventListener('DOMContentLoaded', function() { // On document load
+              var words = [ 'Quick', 'Fast', 'Swift', 'Rapid', 'Speedy', 'Brisk', 'Hasty', 'Nimble', 'Instant', 'Snappy' ];
+              var currentIndex = 0;
+              var delay = 4200; // Delay in milliseconds
+
+              function updateText() {
+                  var letsMakeItText = document.getElementById('letsmakeittext');
+                  letsMakeItText.textContent = words[currentIndex];
+                  currentIndex = (currentIndex + 1) % words.length; // Loop back to the start if we've reached the end
+              }
+
+              updateText(); // Update immediately on page load
+
+              // Set an interval to update the text every few seconds
+              setInterval(updateText, delay);
+          });
+        </script>
+
+
+
+        <h1 class="display-5 fw-bold"><span id="letsmakeittext" class="display-5 fw-bold"></span> Math Solver</h1>
         <p class="col-md-8 fs-4">Welcome! You input values in a formula, then press solve, and it calculates for you. Ranges from simple addition, to quadratic factoring, and more.</p>
         <button class="btn btn-primary btn-lg" type="button" onclick="document.getElementById('showcase').scrollIntoView({ behavior: 'smooth' });">View!</button>
       </div>
