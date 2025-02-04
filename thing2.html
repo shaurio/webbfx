@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Sound Challenge</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.game-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+}
+
+input {
+    padding: 10px;
+    width: 70%;
+    margin: 10px 0;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#resultMessage {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+#score {
+    margin-top: 30px;
+    font-size: 16px;
+}
+
+        body {
+    background: linear-gradient(-45deg,
+        #ffefc2, #ffc2c2
+    );
+    background-size: 1000% 1000%;  /* Adjusted background size for smoother transitions */
+    animation: gradient 15s ease infinite;  /* Smooth infinite animation */
+    height: 100vh;
+    margin: 0;
+}
+
+/* Keyframes for the background animation */
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 50% 0%;
+    }
+}
+
+        #submitGuess:hover {
+            background-color: blue;
+            color: white;
+            transform: scale(1.1); /* Makes the element 10% larger when hovered */
+        }
+
+        #playSound:hover {
+            background-color: blue;
+            color: white;
+            transform: scale(1.1); /* Makes the element 10% larger when hovered */
+        }
+
+        button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+
+
+}
+
+        /* Visual feedback styles */
+.correct {
+    background-color: #28a745; /* Green background for correct answers */
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.incorrect {
+    background-color: #dc3545; /* Red background for incorrect answers */
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+#resultMessage {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* Flashing background on correct/incorrect guess */
+@keyframes flashCorrect {
+    0% { background-color: #28a745; }
+    50% { background-color: transparent; }
+    100% { background-color: #28a745; }
+}
+
+@keyframes flashIncorrect {
+    0% { background-color: #dc3545; }
+    50% { background-color: transparent; }
+    100% { background-color: #dc3545; }
+}
+
+.flash-correct {
+    animation: flashCorrect 1s ease-in-out;
+}
+
+.flash-incorrect {
+    animation: flashIncorrect 1s ease-in-out;
+}
+
+
+    </style>
+
+
+
+</head>
+<body>
+
+    <div class="container py-4">
+    <div style="padding-bottom: 20px;">
+      <header class="pb-3 mb-4 border-bottom">
+        <a href="home.html" class="d-flex align-items-center text-body-emphasis text-decoration-none">
+          <img src="https://github.com/shaurio/webbfx/blob/master/img/icons/home-svgrepo-com.svg?raw=true"
+               class="card-img-top" alt="Quick Math Solver" width="30px" height="30px">
+          <span class="fs-4" style="color: Black; font-size: 30px;">Home</span>
+        </a>
+      </header>
+    </div>
+
+
+    <div class="game-container">
+        <h1>Guess the Sound Challenge</h1>
+        <h2>Dog, Cat, or Car?</h2>
+
+        <div class="sound-box">
+            <button id="playSound" style="padding: 10px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">Play Sound</button>
+        </div>
+
+        <input type="text" id="userGuess" placeholder="Enter your guess...">
+        <button id="submitGuess" style="padding: 10px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;" disabled>Submit Guess</button>
+
+        <div id="resultMessage"></div>
+        <div id="score">
+            <p>Correct Guesses: <span id="correctGuesses">0</span></p>
+            <p>Incorrect Guesses: <span id="incorrectGuesses">0</span></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

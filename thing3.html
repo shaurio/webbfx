@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Periodic Table</title>
+    <link rel="stylesheet" href="style.css">
+
+
+
+
+
+
+
+    <style>
+        body {
+         font-family: Arial, sans-serif;
+         background-color: #f0f0f0;
+         margin: 0;
+         padding: 0;
+         display: flex;
+         flex-direction: column;
+         justify-content: flex-start;
+         align-items: center;
+         height: 100vh;
+         background-color: #fff;
+     }
+
+     .sorting-container {
+         display: flex;
+         justify-content: center;
+         gap: 20px;
+         margin-top: 20px;
+         margin-bottom: 20px;
+     }
+
+     .sorting-container button {
+         padding: 8px 16px;
+         font-size: 12px;
+         background-color: #007BFF;
+         color: white;
+         height: 30px;
+         width: 180px;
+         border: none;
+         border-radius: 5px;
+         cursor: pointer;
+     }
+
+     .sorting-container button:hover {
+         background-color: #0056b3;
+         transform: scale(1.05);
+     }
+
+     /* Table styling */
+     table {
+         border-collapse: collapse;
+         width: 80%;
+         margin: 0 auto;
+     }
+
+     th, td {
+         border: 1px solid #ddd;
+         padding: 10px;
+         text-align: center;
+         vertical-align: middle;
+     }
+
+     td {
+         width: 110px;
+         height: 110px;
+         border-radius: 5px;
+         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+         background-color: white;
+         transition: background-color 0.3s ease;
+         margin: 10px;
+     }
+
+     /* Hover effect */
+     td:hover {
+         transform: scale(1.1);
+         font-weight: 700;
+     }
+
+     .element-box {
+         font-size: 14px;
+     }
+
+     .atomic-number {
+         font-weight: bold;
+     }
+
+     .symbol {
+         font-size: 20px;
+         font-weight: bold;
+     }
+
+     .name {
+         font-size: 12px;
+         color: #555;
+     }
+
+     .atomic-mass {
+         font-size: 12px;
+         color: #777;
+     }
+
+     th {
+         display: none;
+     }
+
+     #sortByElementType {
+         font-size: 16px;
+         padding: 8px;
+         margin-bottom: 20px;
+     }
+
+     .filter-buttons button {
+         padding: 10px;
+         background-color: #007BFF;
+         color: white;
+         border: none;
+         cursor: pointer;
+         margin: 5px;
+     }
+
+     .filter-buttons button:hover {
+         background-color: blue;
+     }
+
+     .element-box .group,
+     .element-box .period,
+     .element-box .reactivity {
+         display: none;  /* Hide these elements */
+     }
+
+     .filter-dropdowns select:focus {
+         outline: 2px solid #4CAF50;
+     }
+
+     /* Specific styles for element types */
+     .element.AlkaliMetal {
+         color: white;
+         font-weight: bold;
+     }
+
+     .element.AlkalineEarthMetal {
+         color: white;
+         font-weight: bold;
+     }
+
+     .element.TransitionMetal {
+         color: white;
+         font-weight: bold;
+     }
+
+     .element.Lanthanide {
+         color: white;
+         font-weight: bold;
+     }
+
+     .element.Actinide {
+         color: white;
+         font-weight: bold;
+     }
+
+     /* More styles for other types... */
+
+        .container {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
+
+    /* Flexbox to center content */
+    display: flex;
+    flex-direction: column;  /* Align items vertically */
+    align-items: center;     /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    height: 100vh;           /* Full viewport height to center vertically */
+    text-align: center;      /* Center text */
+}
+
+h3 {
+    max-width: 60%;
+    margin: 0 auto;
+}
+
+.sorting-container, .filter-dropdowns {
+    margin-bottom: 20px;
+}
+
+select {
+    height: 35px;
+    width: 200px;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+#letsmakeittext {
+    font-size: 55px;
+    font-weight: 700;
+    padding-top: 40px;
+}
+
+        #moreText {
+          display: none;
+          font-size: 16px;
+          margin-top: 10px;
+
+      }
+      #moreButton {
+          background-color: #007BFF;
+          color: White;
+          padding: 8px 16px;
+          border: none;
+          cursor: pointer;
+          font-size: 16px;
+          \
+      }
+      #moreButton:hover {
+          background-color: blue;
+          color: white;
+          transform: scale(1.1); /* Makes the element 10% larger when hovered */
+      }
+
+        #moreText2 {
+          display: none;
+          font-size: 16px;
+          margin-top: 10px;
+
+      }
+      #moreButton2 {
+          background-color: #007BFF;
+          color: White;
+          padding: 8px 16px;
+          border: none;
+          cursor: pointer;
+          font-size: 16px;
+          \
+      }
+      #moreButton2:hover {
+          background-color: blue;
+          color: white;
+          transform: scale(1.1); /* Makes the element 10% larger when hovered */
+      }
+
+
+    </style>
+</head>
+<body>
+     <script>
+          document.addEventListener('DOMContentLoaded', function() { // On document load
+              var words = [ 'Hello!', 'Welcome!', 'Hey!', 'Whats up?', 'Greetings!'];
+              var currentIndex = 0;
+              var delay = 4200; // Delay in milliseconds
+
+              function updateText() {
+                  var letsMakeItText = document.getElementById('letsmakeittext');
+                  letsMakeItText.textContent = words[currentIndex];
+                  currentIndex = (currentIndex + 1) % words.length; // Loop back to the start if we've reached the end
+              }
+
+              updateText(); // Update immediately on page load
+
+              // Set an interval to update the text every few seconds
+              setInterval(updateText, delay);
+          });
+        </script>
+
+<!-- Main Container with Light Grey Background -->
+<div class="container" style="background-color: light-grey; padding: 20px; border-radius: 8px; max-height: 620px; ">
+
+    <!-- Header -->
+    <span id="letsmakeittext" style="position: centered; font-size: 55px; font-weight: 700; padding-top: 40px;"></span>
+    <h3 style="text-align: center; max-width: 60%;">
+        This project is an interactive Periodic Table of Elements designed to help users explore and analyze various properties of chemical elements. <br> <br>
+        <a href="#explain" style="margin: 10px; transition: transform 0.2s;">Click here!</a> to find out what the sorting categories mean. <br><br>
+    </h3>
+    <h3 style="text-align: center; max-width: 60%; font-size: 25px;" >
+        Why is it useful? <br>
+    </h3>
+
+        <button id="moreButton" onclick="toggleText()" style="margin: 10px;">Click here!</button>
+        <p id="moreText" style="font-size: 17px; max-width: 60%;"> Educational Tool, dynamic, and provides a simple way to search and sort through elements based on different properties, saving time and enhancing understanding.</p>
+        <script>
+            function toggleText() {
+                var moreText = document.getElementById("moreText");
+                var moreButton = document.getElementById("moreButton");
+
+                if (moreText.style.display === "none") {
+                    moreText.style.display = "block";
+                    moreButton.innerHTML = "Close";  // Change button text to "Less"
+                } else {
+                    moreText.style.display = "none";
+                    moreButton.innerHTML = "Tell me!";  // Change button text back to "More"
+                }
+            }
+        </script>
+    <h3 style="text-align: center; max-width: 60%; font-size: 25px;" >
+        Why did I make it? <br>
+    </h3>
+
+        <button id="moreButton2" onclick="toggleText2()" style="margin: 10px;">Click here!</button>
+        <p id="moreText2" style="font-size: 17px; max-width: 60%;"> Personally I found science to be very interesting. Making this was to share that curiosity, and encourage exploration. It turns the periodic table from a static reference into a dynamic, accessible learning tool that simplifies complex concepts, aids in pattern recognition, and makes information easier to understand.   </p>
+        <script>
+            function toggleText2() {
+                var moreText2 = document.getElementById("moreText2");
+                var moreButton2 = document.getElementById("moreButton2");
+
+                if (moreText2.style.display === "none") {
+                    moreText2.style.display = "block";
+                    moreButton2.innerHTML = "Close";  // Change button text to "Less"
+                } else {
+                    moreText2.style.display = "none";
+                    moreButton2.innerHTML = "Tell me!";  // Change button text back to "More"
+                }
+            }
+        </script>
+
+
+
+
+
+    <!-- Sorting Controls (Placed at the top of the screen) -->
+    <div class="sorting-container" style="margin-bottom: 20px;">
+        <!-- Sorting by Atomic Number and Atomic Mass -->
+        <button id="sortByNumber">Sort by Atomic Number</button>
+        <button id="sortByMass">Sort by Atomic Mass</button>
+
+        <!-- Sort by Group -->
+        <button id="sortByGroup">Sort by Group</button>
+
+        <!-- Sort by Period -->
+        <button id="sortByPeriod">Sort by Period</button>
+
+        <!-- Sort by Reactivity -->
+        <button id="sortByReactivity">Sort by Reactivity</button>
+    </div>
+
+    <!-- Dropdowns for Filters -->
+    <div class="filter-dropdowns" style="margin-bottom: 20px;">
+        <!-- Filter by Period -->
+        <select id="filterByPeriod" style="height: 35px; width: 200px; font-size: 15px; margin-bottom: 10px;">
+            <option value="all">Select Period</option>
+            <option value="1">Period 1</option>
+            <option value="2">Period 2</option>
+            <option value="3">Period 3</option>
+            <option value="4">Period 4</option>
+            <option value="5">Period 5</option>
+            <option value="6">Period 6</option>
+            <option value="7">Period 7</option>
+        </select>
+
+        <!-- Filter by Group -->
+        <select id="filterByGroup" style="height: 35px; width: 200px; font-size: 15px;">
+            <option value="all">Select Group</option>
+            <option value="1">Group 1 (Alkali Metals)</option>
+            <option value="2">Group 2 (Alkaline Earth Metals)</option>
+            <option value="3">Group 3 (Lanthanides and Actinides)</option>
+            <option value="4">Group 4</option>
+            <option value="5">Group 5</option>
+            <option value="6">Group 6</option>
+            <option value="7">Group 7</option>
+            <option value="8">Group 8</option>
+            <option value="9">Group 9</option>
+            <option value="10">Group 10</option>
+            <option value="11">Group 11</option>
+            <option value="12">Group 12</option>
+            <option value="13">Group 13 (Boron Group)</option>
+            <option value="14">Group 14 (Carbon Group)</option>
+            <option value="15">Group 15 (Nitrogen Group)</option>
+            <option value="16">Group 16 (Chalcogens)</option>
+            <option value="17">Group 17 (Halogens)</option>
+            <option value="18">Group 18 (Noble Gases)</option>
+        </select>
+
+        <!-- Filter by Reactivity -->
+        <select id="filterByReactivity" style="height: 35px; width: 200px; font-size: 15px;">
+            <option value="all">Select Reactivity</option>
+            <option value="Low">Low Reactivity</option>
+            <option value="Moderate">Moderate Reactivity</option>
+            <option value="High">High Reactivity</option>
+        </select>
+    </div>
+
+    <!-- Filter by Element Type (e.g., Alkali Metals, Halogens, etc.) -->
+    <select id="sortByElementType" style="font-size: 15px;">
+        <option value="all">All Elements</option>
+        <option value="Alkali Metal">Alkali Metal</option>
+        <option value="Alkaline Earth Metal">Alkaline Earth Metal</option>
+        <option value="Halogen">Halogen</option>
+        <option value="Noble Gas">Noble Gas</option>
+        <option value="Metalloid">Metalloid</option>
+        <option value="Transition Metal">Transition Metal</option>
+        <option value="Post-transition Metal">Post-Transition Metal</option>
+        <option value="Lanthanide">Lanthanide</option>
+        <option value="Actinide">Actinide</option>
+    </select>
+
+</div>
+
+<!-- Periodic Table -->
+<table id="periodicTable">
+    <tbody></tbody>
+    <!-- Table content dynamically inserted by JS -->
+</table>
+
+     <div id="explain" class="container" style="background-color: light-grey; padding-top: 500px; padding-bottom: 500px; border-radius: 8px; margin-top: 2600px;">
+
+         <span style="position: centered; font-size: 40px; font-weight: 700; padding-top: 30px;"> What is an Atomic number?</span>
+    <h3 style="text-align: center; max-width: 60%;">
+        The number of protons in the nucleus of an atom, which determines the chemical properties of an element and its place in the periodic table.<br> <br>
+    </h3>
+
+         <span style="position: centered; font-size: 40px; font-weight: 700; padding-top: 30px;"> What is an Atomic Mass?</span>
+    <h3 style="text-align: center; max-width: 60%;">
+        The average mass of an atom of a chemical element expressed in atomic mass units. It is approximately equivalent to the number of protons and neutrons in the atom (the mass number). <br><br>
+
+    </h3>
+
+
+         <h1 style="position: centered; font-size: 40px; font-weight: 700; padding-top: 30px;"> What is a Group?</h1>
+    <h3 style="text-align: center; max-width: 60%;">
+        In chemistry, a group is a column in the periodic table of elements. Elements in a group have the same number of valence electrons, there are 18 groups. <br> <br>
+    </h3>
+
+         <h1 style="position: centered; font-size: 40px; font-weight: 700; padding-top: 30px;"> What is a Period?</h1>
+    <h3 style="text-align: center; max-width: 60%;">
+        In chemistry, a period is a horizontal row of elements on the periodic table. Elements in the same period have the same number of electron shells, there are 7 periods. <br> <br>
+    </h3>
+
+         <h1 style="position: centered; font-size: 40px; font-weight: 700; padding-top: 40px;"> What is reactivity?</h1>
+    <h3 style="text-align: center; max-width: 60%;">
+        In chemistry, reactivity is the impulse for which a chemical substance undergoes a chemical reaction, either by itself or with other materials, with an overall release of energy.<br> <br>
+        The number of valence electrons an atom has in its outermost shell determines its tendency to gain, lose, or share electrons with other atoms, thus dictating how readily it will participate in chemical reactions; essentially, atoms with incomplete valence shells are more reactive, while those with a full valence shell are less reactive. <br><br>
+    </h3>
+
+          <h1 style="position: centered; font-size: 40px; font-weight: 700; padding-top: 40px;"> What are shells?</h1>
+    <h3 style="text-align: center; max-width: 60%;">
+        Electron shells are layers around an atom’s nucleus that hold electrons. The valency is the number of electrons in the outermost shell, which affects how an element reacts. The period number on the periodic table shows how many shells an atom has. For example, elements in Period 1 have 1 shell, and those in Period 2 have 2 shells. The outer shell determines an element's reactivity.<br> <br>
+    </h3>
+
+          <h1 style="position: centered; font-size: 40px; font-weight: 700; padding-top: 40px;"> What does the periodic table look like?</h1>
+    <h3 style="text-align: center; max-width: 60%;">
+
+    </h3>
+
+     </div>
+
+<script src="https://unpkg.com/isotope-layout@3.0.6/dist/isotope.pkgd.min.js"></script>
+<script src="script2.js"></script>
+</body>
+</html>
