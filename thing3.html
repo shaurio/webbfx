@@ -270,53 +270,12 @@ select {
 <div class="container" style="background-color: light-grey; padding: 20px; border-radius: 8px; max-height: 620px; ">
 
     <!-- Header -->
-    <span id="letsmakeittext" style="position: centered; font-size: 55px; font-weight: 700; padding-top: 40px;"></span>
-    <h3 style="text-align: center; max-width: 60%;">
+    <span style="position: centered; font-size: 55px; font-weight: 700; padding-top: 40px; padding-bottom: 40px;">Interactive Periodic Table</span>
+
+    <h3 style="text-align: center; max-width: 60%;"> <span id="letsmakeittext" style="font-size: 20px; padding-top: 40px;"></span>
         This project is an interactive Periodic Table of Elements designed to help users explore and analyze various properties of chemical elements. <br> <br>
         <a href="#explain" style="margin: 10px; transition: transform 0.2s;">Click here!</a> to find out what the sorting categories mean. <br><br>
     </h3>
-    <h3 style="text-align: center; max-width: 60%; font-size: 25px;" >
-        Why is it useful? <br>
-    </h3>
-
-        <button id="moreButton" onclick="toggleText()" style="margin: 10px;">Click here!</button>
-        <p id="moreText" style="font-size: 17px; max-width: 60%;"> Educational Tool, dynamic, and provides a simple way to search and sort through elements based on different properties, saving time and enhancing understanding.</p>
-        <script>
-            function toggleText() {
-                var moreText = document.getElementById("moreText");
-                var moreButton = document.getElementById("moreButton");
-
-                if (moreText.style.display === "none") {
-                    moreText.style.display = "block";
-                    moreButton.innerHTML = "Close";  // Change button text to "Less"
-                } else {
-                    moreText.style.display = "none";
-                    moreButton.innerHTML = "Tell me!";  // Change button text back to "More"
-                }
-            }
-        </script>
-    <h3 style="text-align: center; max-width: 60%; font-size: 25px;" >
-        Why did I make it? <br>
-    </h3>
-
-        <button id="moreButton2" onclick="toggleText2()" style="margin: 10px;">Click here!</button>
-        <p id="moreText2" style="font-size: 17px; max-width: 60%;"> Personally I found science to be very interesting. Making this was to share that curiosity, and encourage exploration. It turns the periodic table from a static reference into a dynamic, accessible learning tool that simplifies complex concepts, aids in pattern recognition, and makes information easier to understand.   </p>
-        <script>
-            function toggleText2() {
-                var moreText2 = document.getElementById("moreText2");
-                var moreButton2 = document.getElementById("moreButton2");
-
-                if (moreText2.style.display === "none") {
-                    moreText2.style.display = "block";
-                    moreButton2.innerHTML = "Close";  // Change button text to "Less"
-                } else {
-                    moreText2.style.display = "none";
-                    moreButton2.innerHTML = "Tell me!";  // Change button text back to "More"
-                }
-            }
-        </script>
-
-
 
 
 
@@ -404,7 +363,8 @@ select {
     <!-- Table content dynamically inserted by JS -->
 </table>
 
-     <div id="explain" class="container" style="background-color: light-grey; padding-top: 500px; padding-bottom: 500px; border-radius: 8px; margin-top: 2600px;">
+     <div id="explain" class="container" style="background-color: light-grey; padding-top: 500px; padding-bottom: 500px; border-radius: 8px; margin-top: 2600px; width: 100%;">
+
 
          <span style="position: centered; font-size: 40px; font-weight: 700; padding-top: 30px;"> What is an Atomic number?</span>
     <h3 style="text-align: center; max-width: 60%;">
@@ -440,9 +400,56 @@ select {
     </h3>
 
           <h1 style="position: centered; font-size: 40px; font-weight: 700; padding-top: 40px;"> What does the periodic table look like?</h1>
-    <h3 style="text-align: center; max-width: 60%;">
+    <img src="https://github.com/shaurio/webbfx/blob/master/img/Background/ptscr.png?raw=true" alt="Description_of_image">
+
+
+         <h3 style="text-align: center; max-width: 60%;">
 
     </h3>
+
+
+    <h3 style="text-align: center; max-width: 60%; font-size: 25px; padding-top:40px;" >
+        Why is it useful? <br>
+    </h3>
+
+        <button id="moreButton" onclick="toggleText()" style="margin: 10px;">Click here!</button>
+        <p id="moreText" style="font-size: 17px; max-width: 60%;"> Educational Tool, dynamic, and provides a simple way to search and sort through elements based on different properties, saving time and enhancing understanding.</p>
+        <script>
+            function toggleText() {
+                var moreText = document.getElementById("moreText");
+                var moreButton = document.getElementById("moreButton");
+
+                if (moreText.style.display === "none") {
+                    moreText.style.display = "block";
+                    moreButton.innerHTML = "Close";  // Change button text to "Less"
+                } else {
+                    moreText.style.display = "none";
+                    moreButton.innerHTML = "Tell me!";  // Change button text back to "More"
+                }
+            }
+        </script>
+    <h3 style="text-align: center; max-width: 60%; font-size: 25px;" >
+        Why did I make it? <br>
+    </h3>
+
+        <button id="moreButton2" onclick="toggleText2()" style="margin: 10px;">Click here!</button>
+        <p id="moreText2" style="font-size: 17px; max-width: 60%;"> Personally I found science to be very interesting. Making this was to share that curiosity, and encourage exploration. It turns the periodic table from a static reference into a dynamic, accessible learning tool that simplifies complex concepts, aids in pattern recognition, and makes information easier to understand.   </p>
+        <script>
+            function toggleText2() {
+                var moreText2 = document.getElementById("moreText2");
+                var moreButton2 = document.getElementById("moreButton2");
+
+                if (moreText2.style.display === "none") {
+                    moreText2.style.display = "block";
+                    moreButton2.innerHTML = "Close";  // Change button text to "Less"
+                } else {
+                    moreText2.style.display = "none";
+                    moreButton2.innerHTML = "Tell me!";  // Change button text back to "More"
+                }
+            }
+        </script>
+
+
 
      </div>
 

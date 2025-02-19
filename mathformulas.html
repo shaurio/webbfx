@@ -200,6 +200,48 @@ header img {
           transform: scale(1.1); /* Makes the element 10% larger when hovered */
       }
 
+    #moreTextTan {
+          display: none;
+          font-size: 16px;
+          margin-top: 10px;
+
+      }
+      #moreButtonTan {
+          background-color: #007BFF;
+          color: White;
+          padding: 8px 16px;
+          border: none;
+          cursor: pointer;
+          font-size: 16px;
+          \
+      }
+      #moreButtonTan:hover {
+          background-color: blue;
+          color: white;
+          transform: scale(1.1); /* Makes the element 10% larger when hovered */
+      }
+
+    #moreTextCot {
+          display: none;
+          font-size: 16px;
+          margin-top: 10px;
+
+      }
+      #moreButtonCot {
+          background-color: #007BFF;
+          color: White;
+          padding: 8px 16px;
+          border: none;
+          cursor: pointer;
+          font-size: 16px;
+          \
+      }
+      #moreButtonCot:hover {
+          background-color: blue;
+          color: white;
+          transform: scale(1.1); /* Makes the element 10% larger when hovered */
+      }
+
 
   </style>
 
@@ -333,7 +375,10 @@ header img {
       </div>
     </div>
   </div>
+</main>
 </body>
+
+<div style="padding: 20 px;">
 
     <div id="showcase" class="row align-items-md-stretch">
       <div class="col-md-6">
@@ -721,6 +766,889 @@ header img {
                   -->
         </div>
       </div>
+      <div class="col-md-6" style="padding-top: 25px;">
+        <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+          <h2>tan(θ)</h2>
+
+          <h1 style="text-align: center;">Tangent Calculation</h1>
+          <p style="text-align: center;">Input the lengths of the "opposite" side and the "adjacent" side to find the
+            tangent of the angle.</p>
+          <button id="moreButtonTan" onclick="toggleTextTan()">More</button>
+          <p id="moreTextTan" style="display: none;"> The trigonometric function that is equal to the ratio of the side
+            opposite to an acute angle (in a right-angled triangle) to the adjacent side.</p>
+          <script>
+            function toggleTextTan() {
+                var moreTextTan = document.getElementById("moreTextTan");
+                var moreButtonTan = document.getElementById("moreButtonTan");
+
+                if (moreTextTan.style.display === "none") {
+                    moreTextTan.style.display = "block";
+                    moreButtonTan.innerHTML = "Less";  // Change button text to "Less"
+                } else {
+                    moreTextTan.style.display = "none";
+                    moreButtonTan.innerHTML = "More";  // Change button text back to "More"
+                }
+            }
+          </script>
+          <form id="tangentForm" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <label for="oppositeLengthTan" style="font-size: 20px;">Opposite length:</label>
+            <input type="number" id="oppositeLengthTan" name="oppositeLengthTan" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="adjacentLengthTan" style="font-size: 20px;">Adjacent length:</label>
+            <input type="number" id="adjacentLengthTan" name="adjacentLengthTan" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <button type="button" onclick="calculateTangent()"
+                    style="padding: 10px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Calculate
+            </button>
+          </form>
+          <h2 id="tangentResult" style="text-align: center; margin-top: 20px; font-size: 20px; color: black;"></h2>
+
+          <script>
+            function calculateTangent() {
+                var opposite = parseFloat(document.getElementById('oppositeLengthTan').value);
+                var adjacent = parseFloat(document.getElementById('adjacentLengthTan').value);
+                if (adjacent === 0) {
+                    document.getElementById('tangentResult').innerText = "Adjacent length must be greater than zero";
+                } else {
+                    var tangent = opposite / adjacent;
+                    document.getElementById('tangentResult').innerText = "Result: " + tangent;
+                }
+            }
+          </script>
+
+          <!--
+              <button class="btn btn-outline-secondary" type="button">Upvote</button>
+          -->
+        </div>
+      </div>
+
+
+      <div class="col-md-6" style="padding-top: 25px;">
+        <div class="h-100 p-5 text-bg-dark rounded-3">
+          <h2>cot(θ)</h2>
+
+          <h1 style="text-align: center;">Cotangent Calculation</h1>
+          <p style="text-align: center;">Input the lengths of the "adjacent" side and the "opposite" side to find the
+            cotangent of the angle.</p>
+          <button id="moreButtonCot" onclick="toggleTextCot()">More</button>
+          <p id="moreTextCot" style="display: none;"> The cotangent (cot) is a trigonometric function that is the reciprocal of the tangent (tan) function.</p>
+          <script>
+            function toggleTextCot() {
+                var moreTextCot = document.getElementById("moreTextCot");
+                var moreButtonCot = document.getElementById("moreButtonCot");
+
+                if (moreTextCot.style.display === "none") {
+                    moreTextCot.style.display = "block";
+                    moreButtonCot.innerHTML = "Less";  // Change button text to "Less"
+                } else {
+                    moreTextCot.style.display = "none";
+                    moreButtonCot.innerHTML = "More";  // Change button text back to "More"
+                }
+            }
+          </script>
+          <form id="cotangentForm" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <label for="adjacentLengthCot" style="font-size: 20px;">Adjacent length:</label>
+            <input type="number" id="adjacentLengthCot" name="adjacentLengthCot" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="oppositeLengthCot" style="font-size: 20px;">Opposite length:</label>
+            <input type="number" id="oppositeLengthCot" name="oppositeLengthCot" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <button type="button" onclick="calculateCotangent()"
+                    style="padding: 10px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Calculate
+            </button>
+          </form>
+          <h2 id="cotangentResult" style="text-align: center; margin-top: 20px; font-size: 20px; color: white;"></h2>
+
+          <script>
+            function calculateCotangent() {
+                var adjacent = parseFloat(document.getElementById('adjacentLengthCot').value);
+                var opposite = parseFloat(document.getElementById('oppositeLengthCot').value);
+                if (opposite === 0) {
+                    document.getElementById('cotangentResult').innerText = "Opposite length must be greater than zero";
+                } else {
+                    var cotangent = adjacent / opposite;
+                    document.getElementById('cotangentResult').innerText = "Result: " + cotangent;
+                }
+            }
+          </script>
+
+          <!--
+              <button class="btn btn-outline-secondary" type="button">Upvote</button>
+          -->
+        </div>
+      </div>
+      <div class="col-md-6" style="padding-top: 25px;">
+        <div class="h-100 p-5 text-bg-dark rounded-3">
+          <h2>sec(θ)</h2>
+
+          <h1 style="text-align: center;">Secant Calculation</h1>
+          <p style="text-align: center;">Input the lengths of the "hypotenuse" and the "adjacent" side to find the
+            secant of the angle.</p>
+          <button id="moreButtonSec" onclick="toggleTextSec()">More</button>
+          <p id="moreTextSec" style="display: none;"> The secant is the reciprocal of the cosine.</p>
+          <script>
+            function toggleTextSec() {
+                var moreTextSec = document.getElementById("moreTextSec");
+                var moreButtonSec = document.getElementById("moreButtonSec");
+
+                if (moreTextSec.style.display === "none") {
+                    moreTextSec.style.display = "block";
+                    moreButtonSec.innerHTML = "Less";  // Change button text to "Less"
+                } else {
+                    moreTextSec.style.display = "none";
+                    moreButtonSec.innerHTML = "More";  // Change button text back to "More"
+                }
+            }
+          </script>
+          <form id="secantForm" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <label for="hypotenuseLengthSec" style="font-size: 20px;">Hypotenuse length:</label>
+            <input type="number" id="hypotenuseLengthSec" name="hypotenuseLengthSec" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="adjacentLengthSec" style="font-size: 20px;">Adjacent length:</label>
+            <input type="number" id="adjacentLengthSec" name="adjacentLengthSec" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <button type="button" onclick="calculateSecant()"
+                    style="padding: 10px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Calculate
+            </button>
+          </form>
+          <h2 id="secantResult" style="text-align: center; margin-top: 20px; font-size: 20px; color: white;"></h2>
+
+          <script>
+            function calculateSecant() {
+                var hypotenuse = parseFloat(document.getElementById('hypotenuseLengthSec').value);
+                var adjacent = parseFloat(document.getElementById('adjacentLengthSec').value);
+                if (adjacent === 0) {
+                    document.getElementById('secantResult').innerText = "Adjacent length must be greater than zero";
+                } else {
+                    var secant = hypotenuse / adjacent;
+                    document.getElementById('secantResult').innerText = "Result: " + secant;
+                }
+            }
+          </script>
+
+          <!--
+              <button class="btn btn-outline-secondary" type="button">Upvote</button>
+          -->
+        </div>
+      </div>
+      <div class="col-md-6" style="padding-top: 25px;">
+        <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+          <h2>csc(θ)</h2>
+
+          <h1 style="text-align: center;">Cosecant Calculation</h1>
+          <p style="text-align: center;">Input the lengths of the "hypotenuse" and the "opposite" side to find the
+            cosecant of the angle.</p>
+          <button id="moreButtonCsc" onclick="toggleTextCsc()">More</button>
+          <p id="moreTextCsc" style="display: none;"> The cosecant is the reciprocal of the sine.</p>
+          <script>
+            function toggleTextCsc() {
+                var moreTextCsc = document.getElementById("moreTextCsc");
+                var moreButtonCsc = document.getElementById("moreButtonCsc");
+
+                if (moreTextCsc.style.display === "none") {
+                    moreTextCsc.style.display = "block";
+                    moreButtonCsc.innerHTML = "Less";  // Change button text to "Less"
+                } else {
+                    moreTextCsc.style.display = "none";
+                    moreButtonCsc.innerHTML = "More";  // Change button text back to "More"
+                }
+            }
+          </script>
+          <form id="cosecantForm" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <label for="hypotenuseLengthCsc" style="font-size: 20px;">Hypotenuse length:</label>
+            <input type="number" id="hypotenuseLengthCsc" name="hypotenuseLengthCsc" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="oppositeLengthCsc" style="font-size: 20px;">Opposite length:</label>
+            <input type="number" id="oppositeLengthCsc" name="oppositeLengthCsc" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <button type="button" onclick="calculateCosecant()"
+                    style="padding: 10px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Calculate
+            </button>
+          </form>
+          <h2 id="cosecantResult" style="text-align: center; margin-top: 20px; font-size: 20px; color: black;"></h2>
+
+          <script>
+            function calculateCosecant() {
+                var hypotenuse = parseFloat(document.getElementById('hypotenuseLengthCsc').value);
+                var opposite = parseFloat(document.getElementById('oppositeLengthCsc').value);
+                if (opposite === 0) {
+                    document.getElementById('cosecantResult').innerText = "Opposite length must be greater than zero";
+                } else {
+                    var cosecant = hypotenuse / opposite;
+                    document.getElementById('cosecantResult').innerText = "Result: " + cosecant;
+                }
+            }
+          </script>
+
+          <!--
+              <button class="btn btn-outline-secondary" type="button">Upvote</button>
+          -->
+        </div>
+      </div>
+      <div class="col-md-6" style="padding-top: 25px;">
+        <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+          <h2>a^2 + b^2 = c^2</h2>
+
+          <h1 style="text-align: center;">Pythagorean Theorem (C)</h1>
+          <p style="text-align: center;">Input the lengths of the two sides (a and b) to find the length of the
+            hypotenuse (c).</p>
+          <button id="moreButtonPyth" onclick="toggleTextPyth()">More</button>
+          <p id="moreTextPyth" style="display: none;"> The Pythagorean Theorem states that in a right-angled triangle,
+            the square of the hypotenuse is equal to the sum of the squares of the other two sides.</p>
+          <script>
+            function toggleTextPyth() {
+                var moreTextPyth = document.getElementById("moreTextPyth");
+                var moreButtonPyth = document.getElementById("moreButtonPyth");
+
+                if (moreTextPyth.style.display === "none") {
+                    moreTextPyth.style.display = "block";
+                    moreButtonPyth.innerHTML = "Less";  // Change button text to "Less"
+                } else {
+                    moreTextPyth.style.display = "none";
+                    moreButtonPyth.innerHTML = "More";  // Change button text back to "More"
+                }
+            }
+          </script>
+          <form id="pythagoreanForm" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <label for="sideA" style="font-size: 20px;">Side a length:</label>
+            <input type="number" id="sideA" name="sideA" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="sideB" style="font-size: 20px;">Side b length:</label>
+            <input type="number" id="sideB" name="sideB" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <button type="button" onclick="calculateHypotenuse()"
+                    style="padding: 10px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Calculate
+            </button>
+          </form>
+          <h2 id="pythagoreanResult" style="text-align: center; margin-top: 20px; font-size: 20px; color: black;"></h2>
+
+          <script>
+            function calculateHypotenuse() {
+                var a = parseFloat(document.getElementById('sideA').value);
+                var b = parseFloat(document.getElementById('sideB').value);
+                var c = Math.sqrt(a * a + b * b);
+                document.getElementById('pythagoreanResult').innerText = "Result: " + c;
+            }
+          </script>
+
+          <!--
+              <button class="btn btn-outline-secondary" type="button">Upvote</button>
+          -->
+        </div>
+      </div>
+      <div class="col-md-6" style="padding-top: 25px;">
+        <div class="h-100 p-5 text-bg-dark rounded-3">
+          <h2>a^2 = c^2 - b^2</h2>
+
+          <h1 style="text-align: center;">Pythagorean Theorem (A)</h1>
+          <p style="text-align: center;">Input the lengths of the hypotenuse (c) and side (b) to find the length of side
+            (a).</p>
+          <button id="moreButtonPythA" onclick="toggleTextPythA()">More</button>
+          <p id="moreTextPythA" style="display: none;"> The Pythagorean Theorem states that in a right-angled triangle,
+            the square of one side is equal to the difference between the square of the hypotenuse and the square of the
+            other side.</p>
+          <script>
+            function toggleTextPythA() {
+                var moreTextPythA = document.getElementById("moreTextPythA");
+                var moreButtonPythA = document.getElementById("moreButtonPythA");
+
+                if (moreTextPythA.style.display === "none") {
+                    moreTextPythA.style.display = "block";
+                    moreButtonPythA.innerHTML = "Less";  // Change button text to "Less"
+                } else {
+                    moreTextPythA.style.display = "none";
+                    moreButtonPythA.innerHTML = "More";  // Change button text back to "More"
+                }
+            }
+          </script>
+          <form id="pythagoreanFormA" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <label for="sideB" style="font-size: 20px;">Side b length:</label>
+            <input type="number" id="sideB2" name="sideB" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="hypotenuseC" style="font-size: 20px;">Hypotenuse (c) length:</label>
+            <input type="number" id="hypotenuseC" name="hypotenuseC" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <button type="button" onclick="calculateSideA()"
+                    style="padding: 10px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Calculate
+            </button>
+          </form>
+          <h2 id="pythagoreanResultA" style="text-align: center; margin-top: 20px; font-size: 20px; color: white;"></h2>
+
+          <script>
+            function calculateSideA() {
+                var b = parseFloat(document.getElementById('sideB2').value);
+                var c = parseFloat(document.getElementById('hypotenuseC').value);
+                if (c <= b) {
+                    document.getElementById('pythagoreanResultA').innerText = "Hypotenuse length must be greater than side b length";
+                } else {
+                    var a = Math.sqrt(c * c - b * b);
+                    document.getElementById('pythagoreanResultA').innerText = "Result: " + a;
+                }
+            }
+          </script>
+
+          <!--
+              <button class="btn btn-outline-secondary" type="button">Upvote</button>
+          -->
+        </div>
+      </div>
+      <div class="col-md-6" style="padding-top: 25px;">
+        <div class="h-100 p-5 text-bg-dark rounded-3">
+          <h2>1/2(h*b)</h2>
+
+          <h1 style="text-align: center;">Triangle Area Calculation</h1>
+          <p style="text-align: center;">Input the base and height of the triangle to find its area.</p>
+
+          <form id="areaForm" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <label for="baseLength" style="font-size: 20px;">Base length:</label>
+            <input type="number" id="baseLength" name="baseLength" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="heightLength" style="font-size: 20px;">Height length:</label>
+            <input type="number" id="heightLength" name="heightLength" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <button type="button" onclick="calculateArea()"
+                    style="padding: 10px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Calculate
+            </button>
+          </form>
+          <h2 id="areaResult" style="text-align: center; margin-top: 20px; font-size: 20px; color: white;"></h2>
+
+          <script>
+            function calculateArea() {
+                var base = parseFloat(document.getElementById('baseLength').value);
+                var height = parseFloat(document.getElementById('heightLength').value);
+                var area = 0.5 * base * height;
+                document.getElementById('areaResult').innerText = "Result: " + area;
+            }
+          </script>
+
+          <!--
+              <button class="btn btn-outline-secondary" type="button">Upvote</button>
+          -->
+        </div>
+      </div>
+      <div class="col-md-6" style="padding-top: 25px;">
+        <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+          <h2>ax^2 + bx + c = 0</h2>
+
+          <h1 style="text-align: center;">Solve (x) Quadratic Equation</h1>
+          <p style="text-align: center;">Input the coefficients a, b, and c to find the roots of the
+            quadratic equation ax^2 + bx + c = 0.</p>
+          <button id="moreButtonQuad" onclick="toggleTextQuad()">More</button>
+          <p id="moreTextQuad" style="display: none;"> Answer for "x". The quadratic equation is solved using the formula: \(x =
+            \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}\). The discriminant \(b^2 - 4ac\) determines the nature of the roots.</p>
+          <script>
+            function toggleTextQuad() {
+                var moreTextQuad = document.getElementById("moreTextQuad");
+                var moreButtonQuad = document.getElementById("moreButtonQuad");
+
+                if (moreTextQuad.style.display === "none") {
+                    moreTextQuad.style.display = "block";
+                    moreButtonQuad.innerHTML = "Less";  // Change button text to "Less"
+                } else {
+                    moreTextQuad.style.display = "none";
+                    moreButtonQuad.innerHTML = "More";  // Change button text back to "More"
+                }
+            }
+          </script>
+          <form id="quadraticForm" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <label for="coefficientA" style="font-size: 20px;">Coefficient \(a\):</label>
+            <input type="number" id="coefficientA" name="coefficientA" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="coefficientB" style="font-size: 20px;">Coefficient \(b\):</label>
+            <input type="number" id="coefficientB" name="coefficientB" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="coefficientC" style="font-size: 20px;">Coefficient \(c\):</label>
+            <input type="number" id="coefficientC" name="coefficientC" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <button type="button" onclick="calculateQuadratic()"
+                    style="padding: 10px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Calculate
+            </button>
+          </form>
+          <h2 id="quadraticResult" style="text-align: center; margin-top: 20px; font-size: 20px; color: black;"></h2>
+
+          <script>
+            function calculateQuadratic() {
+                var a = parseFloat(document.getElementById('coefficientA').value);
+                var b = parseFloat(document.getElementById('coefficientB').value);
+                var c = parseFloat(document.getElementById('coefficientC').value);
+
+                if (a === 0) {
+                    document.getElementById('quadraticResult').innerText = "Coefficient a must be greater than zero";
+                } else {
+                    var discriminant = b * b - 4 * a * c;
+                    var resultText;
+
+                    if (discriminant > 0) {
+                        var root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+                        var root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+                        resultText = "Two real roots: " + root1 + " and " + root2;
+                    } else if (discriminant === 0) {
+                        var root = -b / (2 * a);
+                        resultText = "One real root: " + root;
+                    } else {
+                        var realPart = -b / (2 * a);
+                        var imaginaryPart = Math.sqrt(-discriminant) / (2 * a);
+                        resultText = "Two complex roots: " + realPart + " + " + imaginaryPart + "i and " + realPart + " - " + imaginaryPart + "i";
+                    }
+
+                    document.getElementById('quadraticResult').innerText = "Result: " + resultText;
+                }
+            }
+          </script>
+
+          <!--
+              <button class="btn btn-outline-secondary" type="button">Upvote</button>
+          -->
+        </div>
+      </div>
+      <div class="col-md-6" style="padding-top: 25px;">
+        <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+          <h2>Between Two Points (x,y)</h2>
+
+          <h1 style="text-align: center;">Distance Calculation</h1>
+          <p style="text-align: center;">Input the coordinates of the two points to find the distance between them.</p>
+          <button id="moreButtonDist" onclick="toggleTextDist()">More</button>
+          <p id="moreTextDist" style="display: none;"> The distance between two points (x1, y1) and (x2, y2) is the square root of ((x2 - x1)^2 + (y2 - y1)^2).
+
+            .</p>
+          <script>
+            function toggleTextDist() {
+                var moreTextDist = document.getElementById("moreTextDist");
+                var moreButtonDist = document.getElementById("moreButtonDist");
+
+                if (moreTextDist.style.display === "none") {
+                    moreTextDist.style.display = "block";
+                    moreButtonDist.innerHTML = "Less";  // Change button text to "Less"
+                } else {
+                    moreTextDist.style.display = "none";
+                    moreButtonDist.innerHTML = "More";  // Change button text back to "More"
+                }
+            }
+          </script>
+          <form id="distanceForm" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <label for="x1" style="font-size: 20px;">x<sub>1</sub>:</label>
+            <input type="number" id="x1" name="x1" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="y1" style="font-size: 20px;">y<sub>1</sub>:</label>
+            <input type="number" id="y1" name="y1" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="x2" style="font-size: 20px;">x<sub>2</sub>:</label>
+            <input type="number" id="x2" name="x2" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="y2" style="font-size: 20px;">y<sub>2</sub>:</label>
+            <input type="number" id="y2" name="y2" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <button type="button" onclick="calculateDistance()"
+                    style="padding: 10px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Calculate
+            </button>
+          </form>
+          <h2 id="distanceResult" style="text-align: center; margin-top: 20px; font-size: 20px; color: black;"></h2>
+
+          <script>
+            function calculateDistance() {
+                var x1 = parseFloat(document.getElementById('x1').value);
+                var y1 = parseFloat(document.getElementById('y1').value);
+                var x2 = parseFloat(document.getElementById('x2').value);
+                var y2 = parseFloat(document.getElementById('y2').value);
+
+                var distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+                document.getElementById('distanceResult').innerText = "Result: " + distance;
+            }
+          </script>
+
+          <!--
+              <button class="btn btn-outline-secondary" type="button">Upvote</button>
+          -->
+        </div>
+      </div>
+      <div class="col-md-6" style="padding-top: 25px;">
+        <div class="h-100 p-5 text-bg-dark rounded-3">
+          <h2>Slope of a Line (x,y)</h2>
+
+          <h1 style="text-align: center;">Slope Calculation</h1>
+          <p style="text-align: center;">Input the coordinates of two points to find the slope of the line connecting
+            them.</p>
+          <button id="moreButtonSlopeUnique" onclick="toggleTextSlopeUnique()">More</button>
+          <p id="moreTextSlopeUnique" style="display: none;"> The slope between two points (x1, y1) and (x2,
+            y2) is calculated using the formula: (y2-y1)/(x2-x1)
+
+
+
+
+            .</p>
+          <script>
+            function toggleTextSlopeUnique() {
+                var moreTextSlope = document.getElementById("moreTextSlopeUnique");
+                var moreButtonSlope = document.getElementById("moreButtonSlopeUnique");
+
+                if (moreTextSlope.style.display === "none") {
+                    moreTextSlope.style.display = "block";
+                    moreButtonSlope.innerHTML = "Less";  // Change button text to "Less"
+                } else {
+                    moreTextSlope.style.display = "none";
+                    moreButtonSlope.innerHTML = "More";  // Change button text back to "More"
+                }
+            }
+          </script>
+          <form id="slopeFormUnique" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <label for="x1Slope" style="font-size: 20px;">x<sub>1</sub>:</label>
+            <input type="number" id="x1Slope" name="x1Slope" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="y1Slope" style="font-size: 20px;">y<sub>1</sub>:</label>
+            <input type="number" id="y1Slope" name="y1Slope" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="x2Slope" style="font-size: 20px;">x<sub>2</sub>:</label>
+            <input type="number" id="x2Slope" name="x2Slope" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="y2Slope" style="font-size: 20px;">y<sub>2</sub>:</label>
+            <input type="number" id="y2Slope" name="y2Slope" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <button type="button" onclick="calculateSlopeUnique()"
+                    style="padding: 10px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Calculate
+            </button>
+          </form>
+          <h2 id="slopeResultUnique" style="text-align: center; margin-top: 20px; font-size: 20px; color: white;"></h2>
+
+          <script>
+            function calculateSlopeUnique() {
+                var x1 = parseFloat(document.getElementById('x1Slope').value);
+                var y1 = parseFloat(document.getElementById('y1Slope').value);
+                var x2 = parseFloat(document.getElementById('x2Slope').value);
+                var y2 = parseFloat(document.getElementById('y2Slope').value);
+
+                if (x1 === x2) {
+                    document.getElementById('slopeResultUnique').innerText = "Slope is undefined (vertical line)";
+                } else {
+                    var slope = (y2 - y1) / (x2 - x1);
+                    document.getElementById('slopeResultUnique').innerText = "Result: " + slope;
+                }
+            }
+          </script>
+
+          <!--
+              <button class="btn btn-outline-secondary" type="button">Upvote</button>
+          -->
+        </div>
+      </div>
+      <div class="col-md-6" style="padding-top: 25px;">
+        <div class="h-100 p-5 text-bg-dark rounded-3">
+          <h2>Circle</h2>
+
+          <h1 style="text-align: center;">Circumference and Area Calculation</h1>
+          <p style="text-align: center;">Input the radius of the circle to find its circumference and area.</p>
+          <button id="moreButtonCircleUnique" onclick="toggleTextCircleUnique()">More</button>
+          <p id="moreTextCircleUnique" style="display: none;"> The circumference and area of a circle can be calculated
+            using the following formulas:
+
+
+            Circumference = 2πr
+
+
+            Area = πr^2
+
+            where "r" is the radius of the circle.</p>
+          <script>
+            function toggleTextCircleUnique() {
+                var moreTextCircle = document.getElementById("moreTextCircleUnique");
+                var moreButtonCircle = document.getElementById("moreButtonCircleUnique");
+
+                if (moreTextCircle.style.display === "none") {
+                    moreTextCircle.style.display = "block";
+                    moreButtonCircle.innerHTML = "Less";  // Change button text to "Less"
+                } else {
+                    moreTextCircle.style.display = "none";
+                    moreButtonCircle.innerHTML = "More";  // Change button text back to "More"
+                }
+            }
+          </script>
+          <form id="circleFormUnique" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <label for="radiusUnique" style="font-size: 20px;">Radius:</label>
+            <input type="number" id="radiusUnique" name="radius" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <button type="button" onclick="calculateCircleUnique()"
+                    style="padding: 10px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Calculate
+            </button>
+          </form>
+          <h2 id="circleResultUnique" style="text-align: center; margin-top: 20px; font-size: 20px; color: white;"></h2>
+
+          <script>
+            function calculateCircleUnique() {
+                var radius = parseFloat(document.getElementById('radiusUnique').value);
+                if (radius <= 0) {
+                    document.getElementById('circleResultUnique').innerText = "Radius must be greater than zero";
+                } else {
+                    var circumference = 2 * Math.PI * radius;
+                    var circumpi = circumference / Math.PI
+                    var area = Math.PI * Math.pow(radius, 2);
+                    var areapi = area / Math.PI
+                    var resultText = "Circumference: " + circumference + " or " + circumpi + "π" +  "\n Area: " + area + " or " + areapi + "π";
+                    document.getElementById('circleResultUnique').innerText = "Result: " + resultText;
+                }
+            }
+          </script>
+
+          <!--
+              <button class="btn btn-outline-secondary" type="button">Upvote</button>
+          -->
+        </div>
+      </div>
+      <div class="col-md-6" style="padding-top: 25px;">
+        <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+          <h2>Log"B"(x)</h2>
+
+          <h1 style="text-align: center;">Logarithm Calculation</h1>
+          <p style="text-align: center;">Input a number and the base to calculate the logarithm.</p>
+          <button id="moreButtonLogUnique" onclick="toggleTextLogUnique()">More</button>
+          <p id="moreTextLogUnique" style="display: none;"> In a nutshell: "log base b of x" is equal to "log of x" divided by "log of b". To what power must I raise b to get x? Log(x) and Log(b) both have base 10. </p>
+          <script>
+            function toggleTextLogUnique() {
+                var moreTextLog = document.getElementById("moreTextLogUnique");
+                var moreButtonLog = document.getElementById("moreButtonLogUnique");
+
+                if (moreTextLog.style.display === "none") {
+                    moreTextLog.style.display = "block";
+                    moreButtonLog.innerHTML = "Less";  // Change button text to "Less"
+                } else {
+                    moreTextLog.style.display = "none";
+                    moreButtonLog.innerHTML = "More";  // Change button text back to "More"
+                }
+            }
+          </script>
+          <form id="logFormUnique" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <label for="logNumber" style="font-size: 20px;">Number (x):</label>
+            <input type="number" id="logNumberUnique" name="logNumber" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="logBase" style="font-size: 20px;">Base (b):</label>
+            <input type="number" id="logBaseUnique" name="logBase" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <button type="button" onclick="calculateLogUnique()"
+                    style="padding: 10px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Calculate
+            </button>
+          </form>
+          <h2 id="logResultUnique" style="text-align: center; margin-top: 20px; font-size: 20px; color: black;"></h2>
+
+          <script>
+            function calculateLogUnique() {
+                var x = parseFloat(document.getElementById('logNumberUnique').value);
+                var b = parseFloat(document.getElementById('logBaseUnique').value);
+
+                if (x <= 0) {
+                    document.getElementById('logResultUnique').innerText = "Number must be greater than zero";
+                } else if (b <= 0 || b === 1) {
+                    document.getElementById('logResultUnique').innerText = "Base must be greater than zero and not equal to one";
+                } else {
+                    var logResult;
+                    if (b === 10) {
+                        logResult = Math.log10(x);
+                    } else if (b === Math.E) {
+                        logResult = Math.log(x);
+                    } else {
+                        logResult = Math.log(x) / Math.log(b);
+                    }
+                    document.getElementById('logResultUnique').innerText = "Result: " + logResult;
+                }
+            }
+          </script>
+
+          <!--
+              <button class="btn btn-outline-secondary" type="button">Upvote</button>
+          -->
+        </div>
+      </div>
+      <div class="col-md-6" style="padding-top: 25px;">
+        <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+          <h2>BMI Calculator</h2>
+
+          <h1 style="text-align: center;">BMI Calculation</h1>
+          <p style="text-align: center;">Input your weight (in kg), height (in cm), age, and sex to calculate your BMI
+            and understand what it means.</p>
+          <button id="moreButtonBMIUnique" onclick="toggleTextBMIUnique()">More</button>
+          <p id="moreTextBMIUnique" style="display: none;"> Body Mass Index (BMI) is a measure of body fat based on
+            height and weight. "Weight" divided by "height squared".
+
+          </p>
+          <script>
+            function toggleTextBMIUnique() {
+                var moreTextBMI = document.getElementById("moreTextBMIUnique");
+                var moreButtonBMI = document.getElementById("moreButtonBMIUnique");
+
+                if (moreTextBMI.style.display === "none") {
+                    moreTextBMI.style.display = "block";
+                    moreButtonBMI.innerHTML = "Less";  // Change button text to "Less"
+                } else {
+                    moreTextBMI.style.display = "none";
+                    moreButtonBMI.innerHTML = "More";  // Change button text back to "More"
+                }
+            }
+          </script>
+          <form id="bmiFormUnique" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <label for="weight" style="font-size: 20px;">Weight (kg):</label>
+            <input type="number" id="weightUnique" name="weight" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="height" style="font-size: 20px;">Height (cm):</label>
+            <input type="number" id="heightUnique" name="height" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="age" style="font-size: 20px;">Age:</label>
+            <input type="number" id="ageUnique" name="age" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="sex" style="font-size: 20px;">Sex:</label>
+            <select id="sexUnique" name="sex" required
+                    style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+            <button type="button" onclick="calculateBMIUnique()"
+                    style="padding: 10px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Calculate
+            </button>
+          </form>
+          <h2 id="bmiResultUnique" style="text-align: center; margin-top: 20px; font-size: 20px; color: black;"></h2>
+
+          <script>
+            function calculateBMIUnique() {
+                var weight = parseFloat(document.getElementById('weightUnique').value);
+                var heightCm = parseFloat(document.getElementById('heightUnique').value);
+                var age = parseInt(document.getElementById('ageUnique').value);
+                var sex = document.getElementById('sexUnique').value;
+
+                if (weight <= 0) {
+                    document.getElementById('bmiResultUnique').innerText = "Weight must be greater than zero";
+                } else if (heightCm <= 0) {
+                    document.getElementById('bmiResultUnique').innerText = "Height must be greater than zero";
+                } else if (age <= 0) {
+                    document.getElementById('bmiResultUnique').innerText = "Age must be greater than zero";
+                } else {
+                    var heightM = heightCm / 100; // Convert height from cm to meters
+                    var bmi = weight / (heightM * heightM);
+                    var resultText = "BMI: " + bmi.toFixed(2);
+
+                    // Interpret the BMI result
+                    if (sex === 'male') {
+                        if (age >= 18) {
+                            // Adult male BMI interpretation
+                            if (bmi < 18.5) {
+                                resultText += " (Underweight)";
+                            } else if (bmi >= 18.5 && bmi < 25) {
+                                resultText += " (Normal weight)";
+                            } else if (bmi >= 25 && bmi < 30) {
+                                resultText += " (Overweight)";
+                            } else {
+                                resultText += " (Obese)";
+                            }
+                        } else {
+                            resultText += " - For children and teens, BMI interpretation varies based on age and percentiles.";
+                        }
+                    } else {
+                        if (age >= 18) {
+                            // Adult female BMI interpretation
+                            if (bmi < 18.5) {
+                                resultText += " (Underweight)";
+                            } else if (bmi >= 18.5 && bmi < 25) {
+                                resultText += " (Normal weight)";
+                            } else if (bmi >= 25 && bmi < 30) {
+                                resultText += " (Overweight)";
+                            } else {
+                                resultText += " (Obese)";
+                            }
+                        } else {
+                            resultText += " - For children and teens, BMI interpretation varies based on age and percentiles.";
+                        }
+                    }
+
+                    document.getElementById('bmiResultUnique').innerText = "Result: " + resultText;
+                }
+            }
+          </script>
+
+          <!--
+              <button class="btn btn-outline-secondary" type="button">Upvote</button>
+          -->
+        </div>
+      </div>
+      <div class="col-md-6" style="padding-top: 25px;">
+        <div class="h-100 p-5 text-bg-dark rounded-3">
+          <h2>Percentage Calculator</h2>
+
+          <h1 style="text-align: center;">Percentage Calculation</h1>
+          <p style="text-align: center;">Input two values to calculate percentages, percentage increases/decreases, and
+            other related operations.</p>
+          <button id="moreButtonPercentageUnique" onclick="toggleTextPercentageUnique()">More</button>
+          <p id="moreTextPercentageUnique" style="display: none;"> The calculator can perform various percentage
+            calculations, such as finding the percentage of one number relative to another and calculating percentage
+            increase or decrease.</p>
+          <script>
+            function toggleTextPercentageUnique() {
+                var moreTextPercentage = document.getElementById("moreTextPercentageUnique");
+                var moreButtonPercentage = document.getElementById("moreButtonPercentageUnique");
+
+                if (moreTextPercentage.style.display === "none") {
+                    moreTextPercentage.style.display = "block";
+                    moreButtonPercentage.innerHTML = "Less";  // Change button text to "Less"
+                } else {
+                    moreTextPercentage.style.display = "none";
+                    moreButtonPercentage.innerHTML = "More";  // Change button text back to "More"
+                }
+            }
+          </script>
+          <form id="percentageFormUnique"
+                style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+            <label for="value1" style="font-size: 20px;">Value 1:</label>
+            <input type="number" id="value1Unique" name="value1" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="value2" style="font-size: 20px;">Value 2:</label>
+            <input type="number" id="value2Unique" name="value2" required
+                   style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+            <button type="button" onclick="calculatePercentageUnique()"
+                    style="padding: 10px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              Calculate
+            </button>
+          </form>
+          <h2 id="percentageResultUnique"
+              style="text-align: center; margin-top: 20px; font-size: 20px; color: white;"></h2>
+
+          <script>
+            function calculatePercentageUnique() {
+                var value1 = parseFloat(document.getElementById('value1Unique').value);
+                var value2 = parseFloat(document.getElementById('value2Unique').value);
+
+                if (value1 === 0) {
+                    document.getElementById('percentageResultUnique').innerText = "Value 1 must be greater than zero";
+                } else if (value2 === 0) {
+                    document.getElementById('percentageResultUnique').innerText = "Value 2 must be greater than zero";
+                } else {
+                    var percentage = (value2 / value1) * 100;
+                    var percentageIncrease = ((value2 - value1) / value1) * 100;
+                    var percentageDecrease = ((value1 - value2) / value1) * 100;
+
+                    var resultText = "Value 2 is " + percentage.toFixed(2) + "% of Value 1. ";
+                    if (value2 > value1) {
+                        resultText += "Value 2 is " + percentageIncrease.toFixed(2) + "% more than Value 1.";
+                    } else {
+                        resultText += "Value 2 is " + percentageDecrease.toFixed(2) + "% less than Value 1.";
+                    }
+
+                    document.getElementById('percentageResultUnique').innerText = "Result: " + resultText;
+                }
+            }
+          </script>
+
+          <!--
+              <button class="btn btn-outline-secondary" type="button">Upvote</button>
+          -->
+        </div>
+      </div>
 
 
     </div>
@@ -728,6 +1656,8 @@ header img {
     <footer class="pt-3 mt-4 text-body-secondary border-top">
       &copy; 2024
     </footer>
+
+</div>
 
 
 <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pong Game</title>
+    <style>
+        body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+    margin: 0;
+    background-color: #000;
+}
+        canvas {
+            border: 2px solid #fff;
+        }
+        #timer {
+            color: white;
+            padding: 30px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<h1 style="color: white; font-size: 35px;">Strange Pong</h1>
+    <div id="timer" style="font-size: 25px;">Time: 0 </div>
+
+    <canvas id="pongCanvas" width="800" height="400"></canvas>
+<div id="best" style="color: white; font-size: 25px; padding: 15px;">Best Time: 0 </div>
+    <script>
+        const canvas = document.getElementById("pongCanvas");
+        const context = canvas.getContext("2d");
+
+        const paddleWidth = 10;
+        const paddleHeight = 75;
+        const ballRadius = 7;
+
+        let timer = 0;
+        let timerInterval;
+        let bestTime = 0;
+        const timerElement = document.getElementById("timer");
+
+        const player = {
+            x: 0,
+            y: (canvas.height - paddleHeight) / 2,
+            width: paddleWidth,
+            height: paddleHeight,
+            color: "#fff",
+            dy: 0
+        };
+
+        const computer = {
+            x: canvas.width - paddleWidth,
+            y: (canvas.height - paddleHeight) / 2,
+            width: paddleWidth,
+            height: paddleHeight,
+            color: "#fff",
+            dy: 4
+        };
+
+        const ball = {
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            radius: ballRadius,
+            color: "#ff5733",
+            dx: 4,
+            dy: 4
+        };
+
+        function drawRect(x, y, width, height, color) {
+            context.fillStyle = color;
+            context.fillRect(x, y, width, height);
+        }
+
+        function drawCircle(x, y, radius, color) {
+            context.fillStyle = color;
+            context.beginPath();
+            context.arc(x, y, radius, 0, Math.PI * 2, false);
+            context.closePath();
+            context.fill();
+        }
+
+        function drawNet() {
+            for (let i = 0; i <= canvas.height; i += 15) {
+                drawRect(canvas.width / 2 - 1, i, 2, 10, "#fff");
+            }
+        }
+
+        function drawText(text, x, y, color) {
+            context.fillStyle = color;
+            context.font = "32px Arial";
+            context.fillText(text, x, y);
+        }
+
+        document.addEventListener("keydown", function(event) {
+            switch(event.key) {
+                case "ArrowUp":
+                    player.dy = -5 - (timer/20);
+                    break;
+                case "ArrowDown":
+                    player.dy = 5 + (timer/20);
+                    break;
+            }
+        });
+
+        document.addEventListener("keyup", function(event) {
+            switch(event.key) {
+                case "ArrowUp":
+                case "ArrowDown":
+                    player.dy = 0;
+                    break;
+            }
+        });
+
+        function movePaddles() {
+            player.y += player.dy;
+            computer.y += (ball.y - (computer.y + computer.height / 2)) * 1;
+
+            if (player.y < 0) player.y = 0;
+            if (player.y > canvas.height - player.height) player.y = canvas.height - player.height;
+            if (computer.y < 0) computer.y = 0;
+            if (computer.y > canvas.height - computer.height) computer.y = canvas.height - computer.height;
+        }
+
+        function moveBall() {
+            ball.x += ball.dx;
+            ball.y += ball.dy;
+
+            if (ball.y - ball.radius < 0 || ball.y + ball.radius > canvas.height) {
+                ball.dy *= -1;
+            }
+
+            let playerOrComputer = (ball.x < canvas.width / 2) ? player : computer;
+            if (ball.x - ball.radius < playerOrComputer.x + playerOrComputer.width &&
+                ball.x + ball.radius > playerOrComputer.x &&
+                ball.y + ball.radius > playerOrComputer.y &&
+                ball.y - ball.radius < playerOrComputer.y + playerOrComputer.height) {
+                ball.dx *= -1;
+            }
+
+            if (ball.x - ball.radius < 0 || ball.x + ball.radius > canvas.width) {
+                resetBall();
+            }
+        }
+
+        function resetBall() {
+            ball.x = canvas.width / 2;
+            ball.y = canvas.height / 2;
+            ball.dx = 4 * (Math.random() > 0.5 ? 1 : -1);
+            ball.dy = 4 * (Math.random() > 0.5 ? 1 : -1);
+            if (timer > bestTime) {
+        bestTime = timer;
+        document.getElementById("best").textContent = `Best Time: ${bestTime}`;
+    }
+
+            startTimer();
+        }
+
+        function update() {
+            movePaddles();
+            moveBall();
+        }
+
+        function render() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            drawNet();
+            drawRect(player.x, player.y, player.width, player.height, player.color);
+            drawRect(computer.x, computer.y, computer.width, computer.height, computer.color);
+            drawCircle(ball.x, ball.y, ball.radius, ball.color);
+        }
+
+        function gameLoop() {
+            update();
+            render();
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timer = 0;
+            timerElement.textContent = `Time: ${timer}`;
+            timerInterval = setInterval(() => {
+                timer++;
+                timerElement.textContent = `Time: ${timer}`;
+                ball.dx -= timer/20;
+                ball.dy -= timer/20;
+            }, 1000);
+        }
+
+        setInterval(gameLoop, 1000 / 60);
+        startTimer();
+    </script>
+</body>
+</html>
