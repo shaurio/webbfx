@@ -151,7 +151,6 @@ let leftPressed = false;
 let rightPressed = false;
 let upPressed = false;
 let downPressed = false;
-
 document.addEventListener("keydown", function(event) {
     if (event.key === "ArrowLeft") {
         leftPressed = true;
@@ -171,7 +170,6 @@ document.addEventListener("keyup", function(event) {
     } else if (event.key === "ArrowRight") {
         rightPressed = false;
     }
-
     if (event.key === "ArrowUp") {
         upPressed = false;
     } else if (event.key === "ArrowDown") {
@@ -186,7 +184,6 @@ function movePlayer() {
     if (rightPressed) {
         player.x += 5 + timer / 10; // Adjust the speed as needed
     }
-
     if (upPressed) {
         player.y -= 5 + timer / 10; // Adjust the speed as needed
     }
@@ -194,23 +191,20 @@ function movePlayer() {
         player.y += 5 + timer / 10; // Adjust the speed as needed
     }
 
-
-
-    // Prevent the player from going out of bounds
-    if (player.x < player.radius) {
-        player.x = player.radius;
+    // Prevent the player from leaving the canvas boundaries
+    if (player.x < 0) {
+        player.x = 0;
+    } else if (player.x > canvas.width - player.size) {
+        player.x = canvas.width - player.size;
     }
-    if (player.x > canvas.width - player.radius) {
-        player.x = canvas.width - player.radius;
-    }
-    if (player.y > canvas.height - player.radius) {
-        player.y = canvas.height - player.radius;
-    }
-
-    if (player.y < player.radius) {
-        player.y = player.radius;
+    if (player.y < 0) {
+        player.y = 0;
+    } else if (player.y > canvas.height - player.size) {
+        player.y = canvas.height - player.size;
     }
 }
+
+
 
         let bullets = [];
 

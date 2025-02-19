@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escape the Snake</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+        }
+        canvas {
+            border: 2px solid #fff;
+        }
+        #timer, #best {
+            color: white;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: white;">Apple Escape</h1>
+    <div id="timer">Time: 0</div>
+
+    <canvas id="gameCanvas" width="800" height="500"></canvas>
+    <div id="best">Best Time: 0</div>
+    <script>
+       const canvas = document.getElementById("gameCanvas");
+const context = canvas.getContext("2d");
+
+        const player = {
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    size: 15,
+    color: "#f00"
+};
+
+const snake = {
+    segments: [{ x: canvas.width / 2, y: canvas.height / 2 }],
+    size: 15,
+    color: "#0f0",
+    dx: 0,
+    dy: 0,
+    speed: 2
+};
+
+let timer = 0;
+let bestTime = 0;
+let timerInterval;
+const timerElement = document.getElementById("timer");
+const bestElement = document.getElementById("best");
+
+
+        function startTimer() {
+    clearInterval(timerInterval);
+    timer = 0;
+    timerElement.textContent = `Time: ${timer}`;
+    timerInterval = setInterval(() => {
+        timer++;
+        timerElement.textContent = `Time: ${timer}`;
+        snake.segments.push({ x: snake.segments[snake.segments.length - 1].x, y: snake.segments[snake.segments.length - 1].y }); // Increase snake length
+        snake.speed += 0.1; // Increase snake speed
+    }, 1000); // Update every second
+}
+
+
+        function drawRect(x, y, size, color) {
+    context.fillStyle = color;
+    context.fillRect(x, y, size, size);
+}
+
+function drawPlayer() {
+    drawRect(player.x, player.y, player.size, player.color);
+}
+
+function drawSnake() {
+    snake.segments.forEach(segment => {
+        drawRect(segment.x, segment.y, snake.size, snake.color);
+    });
+}
+
+function moveSnake() {
+    for (let i = snake.segments.length - 1; i > 0; i--) {
+        snake.segments[i].x = snake.segments[i - 1].x;
+        snake.segments[i].y = snake.segments[i - 1].y;
+    }
+    snake.segments[0].x += snake.dx * snake.speed;
+    snake.segments[0].y += snake.dy * snake.speed;
+
+    // Prevent the snake from leaving the canvas boundaries
+    if (snake.segments[0].x < 0) {
+        snake.segments[0].x = 0;
+    } else if (snake.segments[0].x > canvas.width - snake.size) {
+        snake.segments[0].x = canvas.width - snake.size;
+    }
+
+    if (snake.segments[0].y < 0) {
+        snake.segments[0].y = 0;
+    } else if (snake.segments[0].y > canvas.height - snake.size) {
+        snake.segments[0].y = canvas.height - snake.size;
+    }
+
+    // Change direction randomly
+    if (Math.random() < 0.1) {
+        snake.dx = (Math.random() > 0.5 ? 1 : -1);
+        snake.dy = (Math.random() > 0.5 ? 1 : -1);
+    }
+}
+
+
+        function checkCollision(player, segment) {
+    const dx = player.x - segment.x;
+    const dy = player.y - segment.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    return distance < player.size + snake.size;
+}
+
+function checkPlayerCollision() {
+    for (let segment of snake.segments) {
+        if (checkCollision(player, segment)) {
+            if (timer > bestTime) {
+                bestTime = timer;
+                bestElement.textContent = `Best Time: ${bestTime}`;
+            }
+            resetGame();
+            break;
+        }
+    }
+}
+
+
+
+let leftPressed = false;
+let rightPressed = false;
+let upPressed = false;
+let downPressed = false;
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "ArrowLeft") {
+        leftPressed = true;
+    } else if (event.key === "ArrowRight") {
+        rightPressed = true;
+    }
+    if (event.key === "ArrowUp") {
+        upPressed = true;
+    } else if (event.key === "ArrowDown") {
+        downPressed = true;
+    }
+});
+
+document.addEventListener("keyup", function(event) {
+    if (event.key === "ArrowLeft") {
+        leftPressed = false;
+    } else if (event.key === "ArrowRight") {
+        rightPressed = false;
+    }
+    if (event.key === "ArrowUp") {
+        upPressed = false;
+    } else if (event.key === "ArrowDown") {
+        downPressed = false;
+    }
+});
+
+function movePlayer() {
+    if (leftPressed) {
+        player.x -= 2 + timer / 5; // Adjust the speed as needed
+    }
+    if (rightPressed) {
+        player.x += 2 + timer / 5; // Adjust the speed as needed
+    }
+    if (upPressed) {
+        player.y -= 2 + timer / 5; // Adjust the speed as needed
+    }
+    if (downPressed) {
+        player.y += 2 + timer / 5; // Adjust the speed as needed
+    }
+
+    // Prevent the player from leaving the canvas boundaries
+    if (player.x < 0) {
+        player.x = 0;
+    } else if (player.x > canvas.width - player.size) {
+        player.x = canvas.width - player.size;
+    }
+    if (player.y < 0) {
+        player.y = 0;
+    } else if (player.y > canvas.height - player.size) {
+        player.y = canvas.height - player.size;
+    }
+}
+
+
+        function resetGame() {
+    player.x = Math.random() * canvas.width;
+    player.y = Math.random() * canvas.height;
+    snake.segments = [{ x: canvas.width / 2, y: canvas.height / 2 }];
+    snake.speed = 2;
+    snake.dx = 0;
+    snake.dy = 0;
+    startTimer();
+}
+
+
+function update() {
+    movePlayer();
+    moveSnake();
+    checkPlayerCollision();
+}
+
+
+function render() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    drawPlayer();
+    drawSnake();
+}
+
+function gameLoop() {
+    update();
+    render();
+}
+
+startTimer();
+setInterval(gameLoop, 1000 / 60);
+
+
+
+    </script>
+</body>
+</html>

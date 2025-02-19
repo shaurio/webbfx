@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survival Game</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+        }
+        canvas {
+            border: 2px solid #fff;
+        }
+        #timer, #best {
+            color: white;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: white;">Dodging Game</h1>
+    <div id="timer">Time: 0</div>
+
+    <canvas id="gameCanvas" width="800" height="500"></canvas>
+    <div id="best">Best Time: 0</div>
+    <script>
+
+        const canvas = document.getElementById("gameCanvas");
+const context = canvas.getContext("2d");
+
+
+   const player = {
+    x: canvas.width / 2,
+    y: canvas.height / 2,
+    size: 12,
+    color: "#0f0",
+    speed: 3,
+    dx: 0, // Add this
+    dy: 0  // Add this
+};
+
+
+let redCubes = [];
+const redCubeSize = 12;
+
+let timer = 0;
+let bestTime = 0;
+let timerInterval;
+const timerElement = document.getElementById("timer");
+const bestElement = document.getElementById("best");
+
+
+        function startTimer() {
+    clearInterval(timerInterval);
+    timer = 0;
+    timerElement.textContent = `Time: ${timer}`;
+    timerInterval = setInterval(() => {
+        timer++;
+        timerElement.textContent = `Time: ${timer}`;
+        player.speed += 0.2; // Increase player speed over time
+        spawnRedCube(); // Spawn a new red cube
+    }, spawntime); // Update every second
+}
+
+let spawntime = 2000 - timer * 20
+
+
+        function spawnRedCube() {
+    const x = Math.random() * (canvas.width - redCubeSize);
+    const y = Math.random() * (canvas.height - redCubeSize);
+    const dx = (Math.random() > 0.5 ? 1 : -1) * 2;
+    const dy = (Math.random() > 0.5 ? 1 : -1) * 2;
+    redCubes.push({ x, y, size: redCubeSize, dx, dy });
+}
+
+
+        function drawRect(x, y, size, color) {
+    context.fillStyle = color;
+    context.fillRect(x, y, size, size);
+}
+
+function drawPlayer() {
+    drawRect(player.x, player.y, player.size, player.color);
+}
+
+function drawRedCubes() {
+    redCubes.forEach(cube => {
+        drawRect(cube.x, cube.y, cube.size, "#f00");
+    });
+}
+
+
+        document.addEventListener("keydown", function(event) {
+    if (event.key === "ArrowLeft") {
+        player.dx = -player.speed;
+    } else if (event.key === "ArrowRight") {
+        player.dx = player.speed;
+    }
+    if (event.key === "ArrowUp") {
+        player.dy = -player.speed;
+    } else if (event.key === "ArrowDown") {
+        player.dy = player.speed;
+    }
+});
+
+document.addEventListener("keyup", function(event) {
+    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        player.dx = 0;
+    }
+    if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+        player.dy = 0;
+    }
+});
+
+function movePlayer() {
+    player.x += player.dx;
+    player.y += player.dy;
+
+    // Prevent the player from leaving the canvas boundaries
+    if (player.x < 0) {
+        player.x = 0;
+    } else if (player.x > canvas.width - player.size) {
+        player.x = canvas.width - player.size;
+    }
+    if (player.y < 0) {
+        player.y = 0;
+    } else if (player.y > canvas.height - player.size) {
+        player.y = canvas.height - player.size;
+    }
+}
+
+function moveRedCubes() {
+    redCubes.forEach(cube => {
+        cube.x += cube.dx;
+        cube.y += cube.dy;
+
+        // Bounce the cube off the walls
+        if (cube.x < 0 || cube.x > canvas.width - cube.size) {
+            cube.dx *= -1;
+        }
+        if (cube.y < 0 || cube.y > canvas.height - cube.size) {
+            cube.dy *= -1;
+        }
+    });
+}
+
+
+        function checkCollision(player, cube) {
+    const dx = player.x - cube.x;
+    const dy = player.y - cube.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    return distance < player.size + cube.size;
+}
+
+function checkPlayerCollision() {
+    for (let cube of redCubes) {
+        if (checkCollision(player, cube)) {
+            if (timer > bestTime) {
+                bestTime = timer;
+                bestElement.textContent = `Best Time: ${bestTime}`;
+            }
+            resetGame();
+            break;
+        }
+    }
+}
+
+
+        function resetGame() {
+    player.x = canvas.width / 2;
+    player.y = canvas.height / 2;
+    player.speed = 3;
+    redCubes = [];
+    startTimer();
+}
+
+
+        function update() {
+    movePlayer();
+    moveRedCubes();
+    checkPlayerCollision();
+}
+
+function render() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    drawPlayer();
+    drawRedCubes();
+}
+
+function gameLoop() {
+    update();
+    render();
+}
+
+startTimer();
+setInterval(gameLoop, 1000 / 60);
+
+
+
+
+    </script>
+</body>
+</html>

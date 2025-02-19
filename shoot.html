@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shoot'N'Survive</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+            color: #fff;
+        }
+        canvas {
+            border: 2px solid #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Shoot'N'Survive</h1>
+    <div>Time Survived: <span id="timer">0</span> seconds</div>
+    <canvas id="gameCanvas" width="500" height="500"></canvas>
+    <div>Best Time: <span id="bestTime">0</span> seconds</div>
+
+
+    <script>
+
+const canvas = document.getElementById('gameCanvas');
+const context = canvas.getContext('2d');
+const canvasWidth = canvas.width;
+const canvasHeight = canvas.height;
+
+
+const player = {
+    x: canvasWidth / 2,
+    y: canvasHeight / 2,
+    radius: 15,
+    angle: 0,
+    rotationSpeed: Math.PI / 45 // Increased speed for better rotation
+};
+
+
+let projectiles = [];
+let enemies = [];
+const projectileSpeed = 10;
+const enemySpeed = 1;
+let leftPressed = false;
+let rightPressed = false;
+let gameover = false;
+
+const timerElement = document.getElementById('timer');
+let timeSurvived = 0;
+
+function drawCircle(x, y, radius, color) {
+    context.fillStyle = color;
+    context.beginPath();
+    context.arc(x, y, radius, 0, Math.PI * 2);
+    context.closePath();
+    context.fill();
+}
+
+
+function drawPlayer() {
+    console.log('Drawing Player');
+    drawCircle(player.x, player.y, player.radius, '#0f0'); // Green circle
+
+    const lineLength = player.radius * 1.2;
+    const endX = player.x + lineLength * Math.cos(player.angle);
+    const endY = player.y + lineLength * Math.sin(player.angle);
+    context.strokeStyle = '#0f0'; // Green line
+    context.lineWidth = 10; // Adjust the thickness as needed
+    context.beginPath();
+    context.moveTo(player.x, player.y);
+    context.lineTo(endX, endY);
+    context.stroke();
+    context.lineWidth = 1; // Reset the line width for other drawings
+}
+
+function drawEnemies() {
+    const minSpeed = 0.5;
+    const maxSpeed = 2;
+
+    enemies.forEach((enemy) => {
+        const color = getColorFromSpeed(enemy.speed, minSpeed, maxSpeed);
+        drawCircle(enemy.x, enemy.y, enemy.radius, color);
+    });
+}
+
+
+function drawProjectiles() {
+    projectiles.forEach((projectile) => {
+        drawCircle(projectile.x, projectile.y, projectile.radius, '#f00'); // Red projectiles
+    });
+}
+
+
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "ArrowLeft") {
+        leftPressed = true;
+    } else if (event.key === "ArrowRight") {
+        rightPressed = true;
+    } else if (event.key === " ") {
+        shootProjectile();
+    }
+});
+
+document.addEventListener("keyup", function(event) {
+    if (event.key === "ArrowLeft") {
+        leftPressed = false;
+    } else if (event.key === "ArrowRight") {
+        rightPressed = false;
+    }
+});
+
+function shootProjectile() {
+    const projectile = {
+        x: player.x + player.radius * Math.cos(player.angle),
+        y: player.y + player.radius * Math.sin(player.angle),
+        radius: 5,
+        dx: projectileSpeed * Math.cos(player.angle),
+        dy: projectileSpeed * Math.sin(player.angle)
+    };
+    projectiles.push(projectile);
+}
+
+function moveProjectiles() {
+    projectiles.forEach((projectile) => {
+        projectile.x += projectile.dx;
+        projectile.y += projectile.dy;
+    });
+
+    // Remove off-screen projectiles
+    projectiles = projectiles.filter((projectile) => (
+        projectile.x > 0 && projectile.x < canvasWidth &&
+        projectile.y > 0 && projectile.y < canvasHeight
+    ));
+}
+
+function spawnEnemy() {
+    const side = Math.floor(Math.random() * 4);
+    let x, y;
+
+    if (side === 0) {
+        // Top
+        x = Math.random() * canvasWidth;
+        y = 10;
+    } else if (side === 1) {
+        // Right
+        x = canvasWidth - 10;
+        y = Math.random() * canvasHeight;
+    } else if (side === 2) {
+        // Bottom
+        x = Math.random() * canvasWidth;
+        y = canvasHeight - 10;
+    } else {
+        // Left
+        x = 10;
+        y = Math.random() * canvasHeight;
+    }
+
+    // Set random size and speed
+    const randomSize = Math.random() * 20 + 10; // Size between 10 and 30
+    const randomSpeed = Math.random() * 1.5 + 0.5; // Speed between 0.5 and 2
+
+    const enemy = {
+        x: x,
+        y: y,
+        radius: randomSize,
+        dx: (player.x - x) / (Math.sqrt((player.x - x) ** 2 + (player.y - y) ** 2)),
+        dy: (player.y - y) / (Math.sqrt((player.x - x) ** 2 + (player.y - y) ** 2)),
+        speed: randomSpeed
+    };
+
+    enemies.push(enemy);
+
+    // Decrease the spawn interval
+    spawnInterval = Math.max(minimumSpawnInterval, spawnInterval * spawnRateIncrease);
+    clearInterval(spawnEnemyInterval); // Clear the existing interval
+    spawnEnemyInterval = setInterval(spawnEnemy, spawnInterval); // Restart with the new interval
+}
+
+
+
+function moveEnemies() {
+    enemies.forEach((enemy) => {
+        enemy.x += enemy.dx * enemy.speed;
+        enemy.y += enemy.dy * enemy.speed;
+    });
+}
+
+
+function checkCollisions() {
+    enemies.forEach((enemy, enemyIndex) => {
+        // Check collision with player
+        const dx = player.x - enemy.x;
+        const dy = player.y - enemy.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < player.radius + enemy.radius) {
+            gameover = true;
+        }
+
+        // Check collision with projectiles
+        projectiles.forEach((projectile, projectileIndex) => {
+            const dx = projectile.x - enemy.x;
+            const dy = projectile.y - enemy.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < projectile.radius + enemy.radius) {
+                // Remove enemy and projectile
+                enemies.splice(enemyIndex, 1);
+                projectiles.splice(projectileIndex, 1);
+            }
+        });
+    });
+}
+
+function update() {
+    if (leftPressed) {
+        player.angle -= player.rotationSpeed;
+    }
+    if (rightPressed) {
+        player.angle += player.rotationSpeed;
+    }
+
+    moveProjectiles();
+    moveEnemies();
+    checkCollisions();
+
+    if (!gameover) {
+        timeSurvived += 1 / 60; // Increase time survived
+        timerElement.textContent = timeSurvived.toFixed(2); // Update timer display
+    }
+}
+
+function render() {
+    context.clearRect(0, 0, canvasWidth, canvasHeight);
+    drawPlayer();
+    drawProjectiles();
+    drawEnemies();
+}
+
+
+function gameLoop() {
+    update();
+    render();
+    if (!gameover) {
+        requestAnimationFrame(gameLoop);
+    } else {
+        resetGame();
+    }
+}
+
+function getColorFromSpeed(speed, minSpeed, maxSpeed) {
+    const ratio = (speed - minSpeed) / (maxSpeed - minSpeed);
+    const red = Math.min(255, Math.floor(255 * ratio));
+    const green = Math.min(165, Math.floor(255 * (1 - ratio))); // Adjust the green component
+    return `rgb(${red}, ${green}, 0)`;
+}
+
+
+
+let spawnEnemyInterval;
+
+function startGame() {
+    clearInterval(spawnEnemyInterval); // Clear any existing intervals
+    spawnInterval = 2000; // Reset the initial spawn interval
+    spawnEnemyInterval = setInterval(spawnEnemy, spawnInterval); // Spawn an enemy every initial interval
+    timeSurvived = 0; // Reset time survived
+    gameLoop();
+}
+
+let spawnInterval = 2000; // Initial spawn interval in milliseconds
+let spawnRateIncrease = 0.95; // Factor to decrease the spawn interval by (increase rate)
+let minimumSpawnInterval = 500; // Minimum spawn interval to avoid becoming too fast
+
+let bestTime = 0;
+
+const bestTimeElement = document.getElementById('bestTime');
+
+function updateBestTime() {
+    if (timeSurvived > bestTime) {
+        bestTime = timeSurvived;
+        bestTimeElement.textContent = bestTime.toFixed(2);
+    }
+}
+
+
+function resetGame() {
+    updateBestTime();
+    projectiles = [];
+    enemies = [];
+    timeSurvived = 0;
+    gameover = false;
+    player.angle = 0;
+    player.x = canvasWidth / 2;
+    player.y = canvasHeight / 2;
+
+    clearInterval(spawnEnemyInterval); // Clear the existing interval
+    spawnInterval = 2000; // Reset the initial spawn interval
+    spawnEnemyInterval = setInterval(spawnEnemy, spawnInterval); // Restart enemy spawning
+    gameLoop();
+}
+
+
+
+startGame();
+
+
+    </script>
+</body>
+</html>

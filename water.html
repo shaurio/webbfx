@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water App</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+            position: relative;
+        }
+        .btn-container {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s; /* Smooth transition */
+}
+
+td:hover .btn-container {
+    opacity: 1; /* Show buttons on hover */
+}
+
+        .btn {
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+        }
+        .reset-btn {
+            margin-top: 10px;
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+    <table id="waterTable" style="font-size: 35px;">
+        <thead>
+            <tr>
+                <th>Days</th>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thur</th>
+                <th>Fri</th>
+                <th>Sat</th>
+                <th>Sun</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+        </tbody>
+    </table>
+    <button class="reset-btn" onclick="resetTable()">Reset</button>
+    <button class="reset-btn" onclick="addParticipant()">Add+</button>
+    <button class="reset-btn" onclick="logistics()">Logistics</button>
+<p id="logisticsResult" style="color: black;"></p>
+    <div id="dailyResults" style="color: black;"></div>
+    <p id="averageDailyResult" style="color: black;"></p>
+    <p id="rangeResult" style="color: black;">
+
+    <script>
+        const participants = ['John', 'Jane', 'Doe']; // Add more participants as needed
+
+        function createTable() {
+    const tableBody = document.getElementById('tableBody');
+    participants.forEach(participant => {
+        const row = document.createElement('tr');
+        const nameCell = document.createElement('td');
+        nameCell.textContent = participant;
+        nameCell.className = 'editable'; // Add a class to make it recognizable
+        nameCell.onclick = function() {
+            editName(this);
+        };
+        row.appendChild(nameCell);
+
+        for (let i = 0; i < 7; i++) {
+            const cell = document.createElement('td');
+            const valueSpan = document.createElement('span');
+            valueSpan.textContent = '0';
+            cell.appendChild(valueSpan);
+
+            const btnContainer = document.createElement('div');
+            btnContainer.className = 'btn-container';
+
+            const incrementBtn = document.createElement('button');
+            incrementBtn.className = 'btn';
+            incrementBtn.textContent = '+';
+            incrementBtn.onclick = function () {
+                valueSpan.textContent = parseInt(valueSpan.textContent) + 1;
+            };
+
+            const decrementBtn = document.createElement('button');
+            decrementBtn.className = 'btn';
+            decrementBtn.textContent = '-';
+            decrementBtn.onclick = function () {
+                valueSpan.textContent = Math.max(0, parseInt(valueSpan.textContent) - 1); // Prevent negative values
+            };
+
+            btnContainer.appendChild(incrementBtn);
+            btnContainer.appendChild(decrementBtn);
+            cell.appendChild(btnContainer);
+
+            row.appendChild(cell);
+        }
+
+        tableBody.appendChild(row);
+    });
+}
+
+
+function resetTable() {
+    const cells = document.querySelectorAll('#tableBody td');
+    cells.forEach(cell => {
+        if (cell.children.length > 1) {
+            cell.children[0].textContent = '0';
+        }
+    });
+}
+
+function editName(cell) {
+    const originalName = cell.textContent;
+    cell.innerHTML = `<input type="text" value="${originalName}">`;
+    const input = cell.querySelector('input');
+    input.focus();
+
+    input.onblur = function() {
+        cell.textContent = input.value;
+        cell.onclick = function() {
+            editName(this);
+        };
+    };
+
+    input.onkeydown = function(event) {
+        if (event.key === 'Enter') {
+            cell.textContent = input.value;
+            cell.onclick = function() {
+                editName(this);
+            };
+        }
+    };
+}
+
+function addParticipant() {
+    const participantName = prompt("Enter participant's name:");
+    if (participantName) {
+        const tableBody = document.getElementById('tableBody');
+        const row = document.createElement('tr');
+        const nameCell = document.createElement('td');
+        nameCell.textContent = participantName;
+        nameCell.className = 'editable'; // Add a class to make it recognizable
+        nameCell.onclick = function() {
+            editName(this);
+        };
+        row.appendChild(nameCell);
+
+        for (let i = 0; i < 7; i++) {
+            const cell = document.createElement('td');
+            const valueSpan = document.createElement('span');
+            valueSpan.textContent = '0';
+            cell.appendChild(valueSpan);
+
+            const btnContainer = document.createElement('div');
+            btnContainer.className = 'btn-container';
+
+            const incrementBtn = document.createElement('button');
+            incrementBtn.className = 'btn';
+            incrementBtn.textContent = '+';
+            incrementBtn.onclick = function () {
+                valueSpan.textContent = parseInt(valueSpan.textContent) + 1;
+            };
+
+            const decrementBtn = document.createElement('button');
+            decrementBtn.className = 'btn';
+            decrementBtn.textContent = '-';
+            decrementBtn.onclick = function () {
+                valueSpan.textContent = Math.max(0, parseInt(valueSpan.textContent) - 1); // Prevent negative values
+            };
+
+            btnContainer.appendChild(incrementBtn);
+            btnContainer.appendChild(decrementBtn);
+            cell.appendChild(btnContainer);
+
+            row.appendChild(cell);
+        }
+
+        tableBody.appendChild(row);
+    }
+}
+
+function logistics() {
+    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    let maxScore = 0;
+    let bestParticipant = '';
+    let bestAverageScore = 0;
+    let bestAverageParticipant = '';
+    let maxRange = 0;
+    let rangeParticipant = '';
+    let lowestScoreDay = '';
+    let highestScoreDay = '';
+    let lowestScore = 0;
+    let highestScore = 0;
+
+    const rows = document.querySelectorAll('#tableBody tr');
+    rows.forEach(row => {
+        const cells = row.querySelectorAll('td');
+        const participantName = cells[0].textContent;
+        let totalScore = 0;
+        let dayCount = cells.length - 1; // Exclude the participant name cell
+        let participantLowestScore = Number.MAX_VALUE;
+        let participantHighestScore = 0;
+        let participantLowestDay = '';
+        let participantHighestDay = '';
+
+        for (let i = 1; i < cells.length; i++) {
+            const dayScore = parseInt(cells[i].querySelector('span').textContent);
+            totalScore += dayScore;
+
+            if (dayScore < participantLowestScore) {
+                participantLowestScore = dayScore;
+                participantLowestDay = i - 1; // Track the day index
+            }
+
+            if (dayScore > participantHighestScore) {
+                participantHighestScore = dayScore;
+                participantHighestDay = i - 1; // Track the day index
+            }
+        }
+
+        let averageScore = totalScore / dayCount;
+
+        if (totalScore > maxScore) {
+            maxScore = totalScore;
+            bestParticipant = participantName;
+        }
+
+        if (averageScore > bestAverageScore) {
+            bestAverageScore = averageScore;
+            bestAverageParticipant = participantName;
+        }
+
+        let range = participantHighestScore - participantLowestScore;
+        if (range > maxRange) {
+            maxRange = range;
+            rangeParticipant = participantName;
+            lowestScoreDay = days[participantLowestDay];
+            highestScoreDay = days[participantHighestDay];
+            lowestScore = participantLowestScore;
+            highestScore = participantHighestScore;
+        }
+    });
+
+    const resultElement = document.getElementById('logisticsResult');
+    resultElement.textContent = `Participant ${bestParticipant} has the highest score this week! With a staggering ${maxScore}.`;
+
+    const averageDailyResult = document.getElementById('averageDailyResult');
+    averageDailyResult.textContent = `Participant ${bestAverageParticipant} had the best average daily score! They averaged ${bestAverageScore.toFixed(2)} every day.`;
+
+    const rangeResult = document.getElementById('rangeResult');
+    rangeResult.textContent = `Participant ${rangeParticipant} was all over the place, getting ${lowestScore} on ${lowestScoreDay}, to getting ${highestScore} on ${highestScoreDay}.`;
+
+    const dailyResults = document.getElementById('dailyResults');
+    dailyResults.innerHTML = ''; // Clear previous results
+
+    days.forEach((day, index) => {
+        let maxDayScore = 0;
+        let bestDayParticipant = '';
+        rows.forEach(row => {
+            const cells = row.querySelectorAll('td');
+            const participantName = cells[0].textContent;
+            const dayScore = parseInt(cells[index + 1].querySelector('span').textContent);
+
+            if (dayScore > maxDayScore) {
+                maxDayScore = dayScore;
+                bestDayParticipant = participantName;
+            }
+        });
+
+        const dayResult = document.createElement('p');
+        dayResult.textContent = `Participant ${bestDayParticipant} had the most on ${day}! They had ${maxDayScore}.`;
+        dailyResults.appendChild(dayResult);
+    });
+}
+
+
+
+
+        createTable();
+    </script>
+</body>
+</html>
